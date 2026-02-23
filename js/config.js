@@ -1,4 +1,4 @@
 const CONFIG = {
-  appName: "Job Tracker",
+  appName: "JAT",
   storageKey: "job-tracker-applications",
 };

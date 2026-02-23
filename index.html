@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Job Application Tracker | Job Tracker</title>
+    <title>JAT — Job Application Tracker</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -64,11 +64,10 @@
       <header
         class="flex items-center justify-between mb-8 bg-white rounded-2xl shadow-sm border border-cb-100 px-6 py-4"
       >
-        <div>
-          <h1 class="font-extrabold text-2xl text-cb-700 tracking-tight">
-            🗂️ Job Tracker
+        <div class="text-center">
+          <h1 class="font-extrabold text-4xl text-cb-700 tracking-tight pl-4">
+            <span id="app-name"></span>
           </h1>
-          <p class="text-sm text-cb-400 mt-0.5">Track your job applications</p>
         </div>
 
         <div class="flex gap-1">
@@ -116,11 +115,6 @@
         >
           <h2 class="font-semibold text-cb-800">Applications</h2>
           <div class="flex gap-2">
-            <button
-              class="border border-cb-200 text-cb-600 hover:bg-cb-50 rounded-lg px-4 py-2 text-sm font-medium transition duration-150 cursor-pointer"
-            >
-              ☰ Filter
-            </button>
             <button
               id="btn-add"
               class="bg-cb-600 text-white hover:bg-cb-700 font-semibold rounded-lg px-4 py-2 text-sm transition duration-150 cursor-pointer"

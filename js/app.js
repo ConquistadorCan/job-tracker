@@ -6,14 +6,17 @@ function renderTable() {
 
   if (applications.length === 0) {
     tbody.innerHTML = `
-      <tr>
-        <td colspan="7" class="py-16 text-center text-slate-400">
-          <p class="text-4xl mb-3">📭</p>
-          <p class="font-semibold text-slate-500">No applications yet</p>
-          <p class="text-sm mt-1">Click + Add to add your first application</p>
-        </td>
-      </tr>
-    `;
+  <tr>
+    <td colspan="7" class="py-16 text-center text-slate-400">
+      <p class="text-4xl mb-3">📭</p>
+      <p class="font-semibold text-slate-500">No applications yet</p>
+      <p class="text-sm mt-1">
+        JAT helps you track your job applications in one place.
+      </p>
+      <p class="text-sm mt-1">Click + Add to add your first application</p>
+    </td>
+  </tr>
+`;
     return;
   }
 
@@ -63,6 +66,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("confirm-cancel")
     .addEventListener("click", closeConfirmModal);
   document.getElementById("btn-add").addEventListener("click", openModal);
+  document.getElementById("app-name").textContent = CONFIG.appName;
 });
 
 document.addEventListener("click", () => {
