@@ -1,15 +1,51 @@
-# UNDECIDED PROJECT NAME
+# JAT — Job Application Tracker
+
+A simple, minimal web application to track your job applications.
+
+🌐 **Live Demo:** [jat.netlify.app](https://jat.netlify.app)
 
 ## Purpose
 
-Job Application Tracker is a web application to help unemployed people track their job applications. The second goal of this project is to learn and practice base web technologies with vibecoding.
+JAT (Job Application Tracker) is a web application to help people track their job applications in one place. The second goal of this project is to learn and practice base web technologies with vibecoding.
 
 ## Tech Stack
 
 - HTML
 - JavaScript
-- Tailwind CSS
+- Tailwind CSS (via CDN)
+
+## Features
+
+- Add new job applications
+- Track application status (Pending, Interview, Accepted, Rejected)
+- Update status with a custom dropdown
+- Delete applications with a confirmation modal
+- Statistics overview (Total, Interviews, Rejected)
+- Data persisted in browser via localStorage
+- Empty state UI
+
+## File Structure
+
+```
+jat/
+  index.html
+  js/
+    utils.js     — utility functions
+    config.js    — app configuration
+    storage.js   — localStorage operations
+    app.js       — UI rendering and interactions
+```
 
 ## Usage
 
-To use this project, you need to have a web server running. You can use any web server you like, but I recommend using [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer).
+To run locally, use [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) or any local web server.
+
+## Roadmap
+
+- [ ] Form validation
+- [ ] Filtering applications by status
+- [ ] Table sorting (by date, status, name)
+- [ ] Logo
+- [ ] Multi-language support (TR/EN)
+- [ ] Mobile responsiveness
+- [ ] Dark mode
