@@ -1,11 +1,10 @@
 <!doctype html>
-<html lang="tr">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>İş Başvuru Takip | Job Tracker</title>
+    <title>Job Application Tracker | Job Tracker</title>
 
-    <!-- 1. Google Fonts: Inter — modern, okunabilir bir yazı tipi -->
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -14,9 +13,7 @@
     />
 
     <style type="text/tailwindcss">
-      /* 2. @theme: Tailwind v4'te özel değişkenler burada tanımlanır */
       @theme {
-        /* Mevcut mavi paletini koruyoruz */
         --color-cb-50: #f1f5fd;
         --color-cb-100: #dfe8fa;
         --color-cb-200: #c5d7f8;
@@ -29,11 +26,9 @@
         --color-cb-900: #29377f;
         --color-cb-950: #1d234e;
 
-        /* 3. Yazı tipini tema değişkeni olarak tanımlıyoruz */
         --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
       }
 
-      /* 4. Durum badge'leri için özel sınıflar — tekrar tekrar yazmamak için */
       .badge {
         @apply inline-flex items-center whitespace-nowrap gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
       }
@@ -50,7 +45,6 @@
         @apply bg-purple-100 text-purple-700;
       }
 
-      /* Çalışma tipi badge'leri */
       .badge-remote {
         @apply bg-sky-100 text-sky-700;
       }
@@ -63,193 +57,100 @@
     </style>
   </head>
 
-  <!--
-    5. body: gradient arka plan + Inter fontu
-       - bg-gradient-to-br: sol üstten sağ alta gradient
-       - min-h-screen: sayfanın en az ekran yüksekliği kadar olması
-       - font-sans: @theme'de tanımladığımız Inter fontunu kullanır
-  -->
   <body
     class="font-sans bg-gradient-to-br from-cb-50 to-cb-100 min-h-screen text-cb-950"
   >
-    <!-- Sayfa içeriğini ortala ve yanlardan boşluk ver -->
     <div class="max-w-5xl mx-auto px-6 py-8">
-      <!-- ===== HEADER ===== -->
-      <header class="flex items-center justify-between mb-8">
-        <!-- Uygulama adı -->
+      <header
+        class="flex items-center justify-between mb-8 bg-white rounded-2xl shadow-sm border border-cb-100 px-6 py-4"
+      >
         <div>
           <h1 class="font-extrabold text-2xl text-cb-700 tracking-tight">
             🗂️ Job Tracker
           </h1>
-          <p class="text-sm text-cb-400 mt-0.5">İş başvurularını takip et</p>
+          <p class="text-sm text-cb-400 mt-0.5">Track your job applications</p>
         </div>
 
-        <!-- 6. İstatistik kartları — her biri küçük bir card -->
         <div class="flex gap-3">
-          <!-- Toplam Başvuru Sayısı -->
-          <div
-            class="bg-white rounded-xl px-4 py-2 shadow-sm border border-cb-100 text-center"
-          >
+          <div class="px-4 py-2 text-center">
             <p
               class="text-xs text-slate-400 font-medium uppercase tracking-wider"
             >
-              Toplam Başvuru
+              Total Applications
             </p>
-            <p class="text-xl font-bold text-cb-700">{toplam}</p>
+            <p id="stat-total" class="text-xl font-bold text-cb-700">—</p>
           </div>
-          <!-- Mülakat Sayısı -->
-          <div
-            class="bg-white rounded-xl px-4 py-2 shadow-sm border border-cb-100 text-center"
-          >
+
+          <div class="px-4 py-2 text-center">
             <p
               class="text-xs text-slate-400 font-medium uppercase tracking-wider"
             >
-              Mülakat Sayısı
+              Interviews
             </p>
-            <p class="text-xl font-bold text-purple-600">{mulakat}</p>
+            <p id="stat-interviews" class="text-xl font-bold text-purple-600">
+              —
+            </p>
           </div>
-          <!-- Reddedilen Başvuru -->
-          <div
-            class="bg-white rounded-xl px-4 py-2 shadow-sm border border-cb-100 text-center"
-          >
+
+          <div class="px-4 py-2 text-center">
             <p
               class="text-xs text-slate-400 font-medium uppercase tracking-wider"
             >
-              Reddedilen
+              Rejected
             </p>
-            <p class="text-xl font-bold text-red-500">{red}</p>
+            <p id="stat-rejected" class="text-xl font-bold text-red-500">—</p>
           </div>
         </div>
       </header>
 
-      <!-- ===== ANA KART ===== -->
-      <!--
-        7. rounded-2xl: köşeleri yuvarla (4xl çok agresifti)
-           shadow-sm: hafif gölge — derinlik hissi verir
-           border: ince kenarlık — kartı çevreden ayırır
-      -->
       <main class="bg-white rounded-2xl shadow-sm border border-cb-100">
-        <!-- Tablo üstü: filtre + ekle butonu -->
         <div
           class="flex items-center justify-between px-6 py-4 border-b border-cb-100"
         >
-          <h2 class="font-semibold text-cb-800">Başvurular</h2>
+          <h2 class="font-semibold text-cb-800">Applications</h2>
           <div class="flex gap-2">
-            <!--
-              8. transition duration-150: hover geçişini yumuşatır
-                 cursor-pointer: tıklanabilir olduğunu gösterir
-            -->
             <button
               class="border border-cb-200 text-cb-600 hover:bg-cb-50 rounded-lg px-4 py-2 text-sm font-medium transition duration-150 cursor-pointer"
             >
-              ☰ Filtrele
+              ☰ Filter
             </button>
             <button
               class="bg-cb-600 text-white hover:bg-cb-700 font-semibold rounded-lg px-4 py-2 text-sm transition duration-150 cursor-pointer"
             >
-              + Ekle
+              + Add
             </button>
           </div>
         </div>
 
-        <!-- Tablo -->
         <div class="overflow-x-auto">
           <table class="w-full text-left text-sm">
             <thead>
-              <!--
-                9. thead satırı: uppercase + tracking-wider = daha profesyonel tablo başlığı
-              -->
               <tr
                 class="text-cb-500 uppercase text-xs tracking-widest border-b border-cb-100 bg-cb-50/50"
               >
-                <th class="py-3 px-6 font-semibold">Şirket</th>
-                <th class="py-3 px-6 font-semibold">Pozisyon</th>
-                <th class="py-3 px-6 font-semibold">Başvuru Tarihi</th>
-                <th class="py-3 px-6 font-semibold">Şehir</th>
-                <th class="py-3 px-6 font-semibold">Çalışma Tipi</th>
-                <th class="py-3 px-6 font-semibold">Maaş Beklentisi</th>
-                <th class="py-3 px-6 font-semibold">Başvuru Durumu</th>
+                <th class="py-3 px-6 font-semibold">Company</th>
+                <th class="py-3 px-6 font-semibold">Position</th>
+                <th class="py-3 px-6 font-semibold">Date Applied</th>
+                <th class="py-3 px-6 font-semibold">City</th>
+                <th class="py-3 px-6 font-semibold">Job Type</th>
+                <th class="py-3 px-6 font-semibold">Expected Salary</th>
+                <th class="py-3 px-6 font-semibold">Status</th>
               </tr>
             </thead>
 
-            <!--
-              10. [&_tr]: Tailwind v4'te "child selector" — her tr'ye stil uygular
-                  divide-y: satırlar arasına ince çizgi ekler (alternatif yaklaşım)
-            -->
             <tbody
+              id="table-body"
               class="[&_tr]:border-b [&_tr]:border-cb-50 [&_tr]:transition [&_tr]:duration-150 [&_tr:hover]:bg-cb-50/60"
-            >
-              <!-- Örnek Satır 1 — Beklemede -->
-              <tr>
-                <td class="py-3.5 px-6 font-medium text-cb-900">Google</td>
-                <td class="py-3.5 px-6 text-slate-600">Frontend Developer</td>
-                <td class="py-3.5 px-6 text-slate-500">23 Şub 2026</td>
-                <td class="py-3.5 px-6 text-slate-500">—</td>
-                <td class="py-3.5 px-6">
-                  <span class="badge badge-remote">🌐 Remote</span>
-                </td>
-                <td class="py-3.5 px-6 text-slate-600">₺80.000</td>
-                <td class="py-3.5 px-6">
-                  <span class="badge badge-pending">⏳ Beklemede</span>
-                </td>
-              </tr>
-
-              <!-- Örnek Satır 2 — Mülakat -->
-              <tr>
-                <td class="py-3.5 px-6 font-medium text-cb-900">Trendyol</td>
-                <td class="py-3.5 px-6 text-slate-600">React Developer</td>
-                <td class="py-3.5 px-6 text-slate-500">20 Şub 2026</td>
-                <td class="py-3.5 px-6 text-slate-500">İstanbul</td>
-                <td class="py-3.5 px-6">
-                  <span class="badge badge-hybrid">🔀 Hybrid</span>
-                </td>
-                <td class="py-3.5 px-6 text-slate-600">₺65.000</td>
-                <td class="py-3.5 px-6">
-                  <span class="badge badge-interview">💬 Mülakat</span>
-                </td>
-              </tr>
-
-              <!-- Örnek Satır 3 — Kabul -->
-              <tr>
-                <td class="py-3.5 px-6 font-medium text-cb-900">Getir</td>
-                <td class="py-3.5 px-6 text-slate-600">UI Engineer</td>
-                <td class="py-3.5 px-6 text-slate-500">15 Şub 2026</td>
-                <td class="py-3.5 px-6 text-slate-500">Ankara</td>
-                <td class="py-3.5 px-6">
-                  <span class="badge badge-onsite">🏢 Onsite</span>
-                </td>
-                <td class="py-3.5 px-6 text-slate-600">₺75.000</td>
-                <td class="py-3.5 px-6">
-                  <span class="badge badge-accepted">✅ Kabul</span>
-                </td>
-              </tr>
-
-              <!-- Örnek Satır 4 — Red -->
-              <tr>
-                <td class="py-3.5 px-6 font-medium text-cb-900">Hepsiburada</td>
-                <td class="py-3.5 px-6 text-slate-600">Software Engineer</td>
-                <td class="py-3.5 px-6 text-slate-500">10 Şub 2026</td>
-                <td class="py-3.5 px-6 text-slate-500">İstanbul</td>
-                <td class="py-3.5 px-6">
-                  <span class="badge badge-hybrid">🔀 Hybrid</span>
-                </td>
-                <td class="py-3.5 px-6 text-slate-600">₺70.000</td>
-                <td class="py-3.5 px-6">
-                  <span class="badge badge-rejected">❌ Reddedildi</span>
-                </td>
-              </tr>
-            </tbody>
+            ></tbody>
           </table>
         </div>
 
-        <!-- Tablo altı: toplam kayıt sayısı -->
         <div class="px-6 py-3 border-t border-cb-50 text-xs text-slate-400">
-          4 başvuru gösteriliyor
+          <span id="table-counter">—</span>
         </div>
       </main>
     </div>
 
-    <!-- Tailwind CSS v4 CDN -->
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
   </body>
 </html>
