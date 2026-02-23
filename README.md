@@ -39,13 +39,3 @@ jat/
 ## Usage
 
 To run locally, use [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) or any local web server.
-
-## Roadmap
-
-- [ ] Form validation
-- [ ] Filtering applications by status
-- [ ] Table sorting (by date, status, name)
-- [ ] Logo
-- [ ] Multi-language support (TR/EN)
-- [ ] Mobile responsiveness
-- [ ] Dark mode
