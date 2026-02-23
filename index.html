@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" style="font-size: 18px">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -71,34 +71,41 @@
           <p class="text-sm text-cb-400 mt-0.5">Track your job applications</p>
         </div>
 
-        <div class="flex gap-3">
+        <div class="flex gap-1">
           <div class="px-4 py-2 text-center">
-            <p
-              class="text-xs text-slate-400 font-medium uppercase tracking-wider"
-            >
-              Total Applications
+            <p class="text-xs text-cb-400 font-medium uppercase tracking-wider">
+              Total
             </p>
-            <p id="stat-total" class="text-xl font-bold text-cb-700">—</p>
+            <p id="stat-total" class="text-2xl font-extrabold text-cb-700">—</p>
           </div>
+
+          <div class="w-px bg-cb-100"></div>
 
           <div class="px-4 py-2 text-center">
             <p
-              class="text-xs text-slate-400 font-medium uppercase tracking-wider"
+              class="text-xs text-purple-400 font-medium uppercase tracking-wider"
             >
               Interviews
             </p>
-            <p id="stat-interviews" class="text-xl font-bold text-purple-600">
+            <p
+              id="stat-interviews"
+              class="text-2xl font-extrabold text-purple-600"
+            >
               —
             </p>
           </div>
 
+          <div class="w-px bg-cb-100"></div>
+
           <div class="px-4 py-2 text-center">
             <p
-              class="text-xs text-slate-400 font-medium uppercase tracking-wider"
+              class="text-xs text-red-400 font-medium uppercase tracking-wider"
             >
               Rejected
             </p>
-            <p id="stat-rejected" class="text-xl font-bold text-red-500">—</p>
+            <p id="stat-rejected" class="text-2xl font-extrabold text-red-500">
+              —
+            </p>
           </div>
         </div>
       </header>
@@ -115,6 +122,7 @@
               ☰ Filter
             </button>
             <button
+              id="btn-add"
               class="bg-cb-600 text-white hover:bg-cb-700 font-semibold rounded-lg px-4 py-2 text-sm transition duration-150 cursor-pointer"
             >
               + Add
@@ -152,5 +160,112 @@
     </div>
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <script src="js/config.js"></script>
+    <script src="js/util.js"></script>
+    <script src="js/storage.js"></script>
+    <script src="js/app.js"></script>
+
+    <div
+      id="modal"
+      class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-2xl shadow-xl w-full max-w-md mx-4 p-6">
+        <div class="flex items-center justify-between mb-6">
+          <h3 class="font-bold text-lg text-cb-800">New Application</h3>
+          <button
+            id="modal-close"
+            class="text-slate-400 hover:text-slate-600 cursor-pointer"
+          >
+            ✕
+          </button>
+        </div>
+
+        <div class="flex flex-col gap-4">
+          <input
+            id="field-company"
+            type="text"
+            placeholder="Company"
+            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+          />
+          <input
+            id="field-position"
+            type="text"
+            placeholder="Position"
+            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+          />
+          <input
+            id="field-date"
+            type="date"
+            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+          />
+          <input
+            id="field-city"
+            type="text"
+            placeholder="City"
+            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+          />
+
+          <select
+            id="field-jobtype"
+            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+          >
+            <option value="remote">Remote</option>
+            <option value="onsite">Onsite</option>
+            <option value="hybrid">Hybrid</option>
+          </select>
+
+          <input
+            id="field-salary"
+            type="number"
+            placeholder="Expected Salary"
+            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+          />
+
+          <select
+            id="field-status"
+            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+          >
+            <option value="pending">Pending</option>
+            <option value="interview">Interview</option>
+            <option value="accepted">Accepted</option>
+            <option value="rejected">Rejected</option>
+          </select>
+
+          <button
+            id="modal-submit"
+            class="bg-cb-600 text-white font-semibold rounded-lg px-4 py-2 text-sm hover:bg-cb-700 transition duration-150 cursor-pointer"
+          >
+            Save Application
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <div
+      id="confirm-modal"
+      class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50"
+    >
+      <div class="bg-white rounded-2xl shadow-xl w-full max-w-sm mx-4 p-6">
+        <h3 class="font-bold text-lg text-cb-800 mb-2">Delete Application</h3>
+        <p class="text-sm text-slate-500 mb-6">
+          Are you sure you want to delete this application? This action cannot
+          be undone.
+        </p>
+        <div class="flex gap-3 justify-end">
+          <button
+            id="confirm-cancel"
+            class="border border-cb-200 text-cb-600 hover:bg-cb-50 rounded-lg px-4 py-2 text-sm font-medium transition duration-150 cursor-pointer"
+          >
+            Cancel
+          </button>
+          <button
+            id="confirm-delete"
+            class="bg-red-500 text-white hover:bg-red-600 font-semibold rounded-lg px-4 py-2 text-sm transition duration-150 cursor-pointer"
+          >
+            Delete
+          </button>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

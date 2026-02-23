@@ -2,7 +2,7 @@
 
 ## Purpose
 
-Job Application Tracker is a web application to help unemployed people track their job applications. The second goal of this project is to learn and practice base web technologies without vibecoding.
+Job Application Tracker is a web application to help unemployed people track their job applications. The second goal of this project is to learn and practice base web technologies with vibecoding.
 
 ## Tech Stack
 
