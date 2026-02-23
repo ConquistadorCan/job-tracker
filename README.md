@@ -2,7 +2,7 @@
 
 A simple, minimal web application to track your job applications.
 
-🌐 **Live Demo:** [jat.netlify.app](https://jat.netlify.app)
+🌐 **Live Demo:** [jat-career.netlify.app](https://jat-career.netlify.app)
 
 ## Purpose
 
