@@ -1,5 +1,19 @@
+let sortConfig = { column: null, direction: "asc" };
+
+function sortApplications(applications) {
+  if (!sortConfig.column) return applications;
+
+  return [...applications].sort((a, b) => {
+    const valA = a[sortConfig.column];
+    const valB = b[sortConfig.column];
+
+    const result = valA.localeCompare(valB, "tr", { sensitivity: "base" });
+    return sortConfig.direction === "asc" ? result : -result;
+  });
+}
+
 function renderTable() {
-  const applications = getApplications();
+  const applications = sortApplications(getApplications());
   const tbody = document.getElementById("table-body");
 
   tbody.innerHTML = "";
@@ -67,6 +81,20 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", closeConfirmModal);
   document.getElementById("btn-add").addEventListener("click", openModal);
   document.getElementById("app-name").textContent = CONFIG.appName;
+});
+
+document.getElementById("sort-company").addEventListener("click", () => {
+  if (sortConfig.column === "company") {
+    sortConfig.direction = sortConfig.direction === "asc" ? "desc" : "asc";
+  } else {
+    sortConfig.column = "company";
+    sortConfig.direction = "asc";
+  }
+
+  document.getElementById("sort-company-icon").textContent =
+    sortConfig.direction === "asc" ? "↑" : "↓";
+
+  renderTable();
 });
 
 document.addEventListener("click", () => {
