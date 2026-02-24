@@ -9,7 +9,7 @@ function saveApplications(applications) {
 
 function addApplication(application) {
   const applications = getApplications();
-  application.id = Date.now();
+  application.id = crypto.randomUUID();
   applications.push(application);
   saveApplications(applications);
 }
