@@ -7,6 +7,11 @@ function sortApplications(applications) {
     const valA = a[sortConfig.column];
     const valB = b[sortConfig.column];
 
+    if (sortConfig.column === "dateApplied") {
+      const result = new Date(valA) - new Date(valB);
+      return sortConfig.direction === "asc" ? result : -result;
+    }
+
     const result = valA.localeCompare(valB, "tr", { sensitivity: "base" });
     return sortConfig.direction === "asc" ? result : -result;
   });
@@ -93,6 +98,24 @@ document.getElementById("sort-company").addEventListener("click", () => {
 
   document.getElementById("sort-company-icon").textContent =
     sortConfig.direction === "asc" ? "↑" : "↓";
+
+  document.getElementById("sort-date-icon").textContent = "↕";
+
+  renderTable();
+});
+
+document.getElementById("sort-date").addEventListener("click", () => {
+  if (sortConfig.column === "dateApplied") {
+    sortConfig.direction = sortConfig.direction === "asc" ? "desc" : "asc";
+  } else {
+    sortConfig.column = "dateApplied";
+    sortConfig.direction = "asc";
+  }
+
+  document.getElementById("sort-date-icon").textContent =
+    sortConfig.direction === "asc" ? "↑" : "↓";
+
+  document.getElementById("sort-company-icon").textContent = "↕";
 
   renderTable();
 });
