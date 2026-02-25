@@ -3,11 +3,14 @@ function capitalize(str) {
 }
 
 function formatSalary(salary, currency) {
-  if (!salary) return "-";
+  if (!salary) return "—";
 
+  const settings = getSettings();
   const symbol =
     CONFIG.currencies.find((c) => c.code === currency)?.symbol || "";
-  const formatted = Number(salary).toLocaleString("tr-TR");
+  const formatted = Number(salary).toLocaleString(
+    settings.thousandsSeparator === "." ? "tr-TR" : "en-US",
+  );
 
-  return `${formatted}${symbol}`;
+  return `${formatted} ${symbol}`;
 }
