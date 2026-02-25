@@ -1,4 +1,4 @@
-let sortConfig = { column: null, direction: "asc" };
+let sortConfig = { column: "dateApplied", direction: "desc" };
 
 function sortApplications(applications) {
   if (!sortConfig.column) return applications;
@@ -86,6 +86,7 @@ document.addEventListener("DOMContentLoaded", () => {
     .addEventListener("click", closeConfirmModal);
   document.getElementById("btn-add").addEventListener("click", openModal);
   document.getElementById("app-name").textContent = CONFIG.appName;
+  document.getElementById("sort-date-icon").textContent = "↓";
 });
 
 document.getElementById("sort-company").addEventListener("click", () => {
