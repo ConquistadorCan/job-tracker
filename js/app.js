@@ -60,7 +60,7 @@ function renderTable() {
     <td class="py-3 px-6">${app.dateApplied}</td>
     <td class="py-3 px-6">${app.city}</td>
     <td class="py-3 px-6"><span class="badge badge-${app.jobType}">${capitalize(app.jobType)}</span></td>
-    <td class="py-3 px-6">${app.salary}</td>
+    <td class="py-3 px-6">${formatSalary(app.salary, app.currency)}</td>
   `;
 
     const statusTd = document.createElement("td");
@@ -189,6 +189,7 @@ function submitForm() {
     jobType: document.getElementById("field-jobtype").value,
     salary: document.getElementById("field-salary").value,
     status: document.getElementById("field-status").value,
+    currency: document.getElementById("field-currency").value,
   };
 
   addApplication(application);
@@ -202,6 +203,7 @@ function submitForm() {
   document.getElementById("field-salary").value = "";
   document.getElementById("field-jobtype").selectedIndex = 0;
   document.getElementById("field-status").selectedIndex = 0;
+  document.getElementById("field-currency").selectedIndex = 0;
 }
 
 function createStatusDropdown(app) {

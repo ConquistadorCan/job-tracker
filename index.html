@@ -234,12 +234,22 @@
             <option value="hybrid">Hybrid</option>
           </select>
 
-          <input
-            id="field-salary"
-            type="number"
-            placeholder="Expected Salary"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          />
+          <div class="flex gap-2">
+            <input
+              id="field-salary"
+              type="number"
+              placeholder="Expected Salary"
+              class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+            />
+            <select
+              id="field-currency"
+              class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+            >
+              <option value="TRY">₺ TRY</option>
+              <option value="USD">$ USD</option>
+              <option value="EUR">€ EUR</option>
+            </select>
+          </div>
 
           <select
             id="field-status"
