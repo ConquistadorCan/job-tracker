@@ -1,5 +1,6 @@
 let sortConfig = { column: "dateApplied", direction: "desc" };
 let filterQuery = "";
+let filterStatus = "";
 
 function sortApplications(applications) {
   if (!sortConfig.column) return applications;
@@ -28,9 +29,13 @@ function renderTable() {
   const allApplications = getApplications();
   const tbody = document.getElementById("table-body");
 
-  const filtered = allApplications.filter((app) =>
-    app.company.toLowerCase().includes(filterQuery.toLowerCase()),
-  );
+  const filtered = allApplications.filter((app) => {
+    const matchesQuery = app.company
+      .toLowerCase()
+      .includes(filterQuery.toLowerCase());
+    const matchesStatus = filterStatus === "" || app.status === filterStatus;
+    return matchesQuery && matchesStatus;
+  });
 
   const applications = sortApplications(filtered);
 
@@ -121,6 +126,11 @@ document.addEventListener("DOMContentLoaded", () => {
   document.getElementById("search-input").addEventListener("input", (e) => {
     filterQuery = e.target.value;
     searchClear.classList.toggle("hidden", filterQuery === "");
+    renderTable();
+  });
+
+  document.getElementById("filter-status").addEventListener("change", (e) => {
+    filterStatus = e.target.value;
     renderTable();
   });
 
