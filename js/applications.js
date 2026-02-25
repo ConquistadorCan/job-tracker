@@ -210,9 +210,22 @@ function openModal() {
 
 function closeModal() {
   document.getElementById("modal").classList.add("hidden");
+  ["field-company", "field-position", "field-date"].forEach((id) => {
+    document
+      .getElementById(id)
+      .classList.remove("border-red-400", "focus:ring-red-400");
+    document
+      .getElementById(id)
+      .classList.add("border-cb-200", "focus:ring-cb-400");
+  });
+  ["error-company", "error-position", "error-date"].forEach((id) => {
+    document.getElementById(id).classList.add("hidden");
+  });
 }
 
 function submitForm() {
+  if (!validateForm()) return;
+
   const application = {
     company: document.getElementById("field-company").value,
     position: document.getElementById("field-position").value,
@@ -227,7 +240,10 @@ function submitForm() {
   addApplication(application);
   closeModal();
   renderTable();
+  clearForm();
+}
 
+function clearForm() {
   document.getElementById("field-company").value = "";
   document.getElementById("field-position").value = "";
   document.getElementById("field-date").value = "";
@@ -323,4 +339,32 @@ function openConfirmModal(id) {
 
 function closeConfirmModal() {
   document.getElementById("confirm-modal").classList.add("hidden");
+}
+
+function validateForm() {
+  const fields = [
+    { id: "field-company", errorId: "error-company" },
+    { id: "field-position", errorId: "error-position" },
+    { id: "field-date", errorId: "error-date" },
+  ];
+
+  let isValid = true;
+
+  fields.forEach(({ id, errorId }) => {
+    const input = document.getElementById(id);
+    const error = document.getElementById(errorId);
+
+    if (!input.value.trim()) {
+      input.classList.add("border-red-400", "focus:ring-red-400");
+      input.classList.remove("border-cb-200", "focus:ring-cb-400");
+      error.classList.remove("hidden");
+      isValid = false;
+    } else {
+      input.classList.remove("border-red-400", "focus:ring-red-400");
+      input.classList.add("border-cb-200", "focus:ring-cb-400");
+      error.classList.add("hidden");
+    }
+  });
+
+  return isValid;
 }
