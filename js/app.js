@@ -8,8 +8,14 @@ function sortApplications(applications) {
     const valB = b[sortConfig.column];
 
     if (sortConfig.column === "dateApplied") {
-      const result = new Date(valA) - new Date(valB);
-      return sortConfig.direction === "asc" ? result : -result;
+      const dateResult = new Date(a.dateApplied) - new Date(b.dateApplied);
+      if (dateResult !== 0)
+        return sortConfig.direction === "asc" ? dateResult : -dateResult;
+      const createdA = a.createdAt || 0;
+      const createdB = b.createdAt || 0;
+      return sortConfig.direction === "asc"
+        ? createdA - createdB
+        : createdB - createdA;
     }
 
     const result = valA.localeCompare(valB, "tr", { sensitivity: "base" });

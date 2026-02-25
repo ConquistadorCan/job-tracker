@@ -10,6 +10,7 @@ function saveApplications(applications) {
 function addApplication(application) {
   const applications = getApplications();
   application.id = crypto.randomUUID();
+  application.createdAt = Date.now();
   applications.push(application);
   saveApplications(applications);
 }
