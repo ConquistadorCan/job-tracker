@@ -24,32 +24,6 @@ function sortApplications(applications) {
   });
 }
 
-function getApplications() {
-  const data = localStorage.getItem(CONFIG.storageKey);
-  return data ? JSON.parse(data) : [];
-}
-
-function saveApplications(applications) {
-  localStorage.setItem(CONFIG.storageKey, JSON.stringify(applications));
-}
-
-function addApplication(application) {
-  const applications = getApplications();
-  application.id = crypto.randomUUID();
-  application.createdAt = Date.now();
-  applications.push(application);
-  saveApplications(applications);
-}
-
-function updateApplicationStatus(id, newStatus) {
-  const applications = getApplications();
-  const app = applications.find((a) => a.id === id);
-  if (app) {
-    app.status = newStatus;
-    saveApplications(applications);
-  }
-}
-
 function renderTable() {
   const allApplications = getApplications();
   const tbody = document.getElementById("table-body");
@@ -206,6 +180,19 @@ function openModal() {
   document.getElementById("field-jobtype").value = settings.jobType;
 
   document.getElementById("modal").classList.remove("hidden");
+
+  const positionList = document.getElementById("position-datalist");
+  const cityList = document.getElementById("city-datalist");
+
+  positionList.innerHTML = settings.positionSuggestions
+    .map((s) => `<option value="${s}"></option>`)
+    .join("");
+
+  cityList.innerHTML = settings.citySuggestions
+    .map((s) => `<option value="${s}"></option>`)
+    .join("");
+
+  document.getElementById("modal").classList.remove("hidden");
 }
 
 function closeModal() {
@@ -225,6 +212,19 @@ function closeModal() {
 
 function submitForm() {
   if (!validateForm()) return;
+
+  const position = document.getElementById("field-position").value.trim();
+  const city = document.getElementById("field-city").value.trim();
+
+  const settings = getSettings();
+  if (position && !settings.positionSuggestions.includes(position)) {
+    settings.positionSuggestions.push(position);
+    saveSettings(settings);
+  }
+  if (city && !settings.citySuggestions.includes(city)) {
+    settings.citySuggestions.push(city);
+    saveSettings(settings);
+  }
 
   const application = {
     company: document.getElementById("field-company").value,
@@ -320,12 +320,6 @@ function updateStats() {
   document.getElementById("stat-rejected").textContent = applications.filter(
     (app) => app.status === "rejected",
   ).length;
-}
-
-function deleteApplication(id) {
-  const applications = getApplications();
-  const filtered = applications.filter((app) => app.id !== id);
-  saveApplications(filtered);
 }
 
 function openConfirmModal(id) {

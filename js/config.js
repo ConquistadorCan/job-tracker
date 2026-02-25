@@ -12,5 +12,12 @@ const CONFIG = {
     currency: "TRY",
     status: "pending",
     jobType: "onsite",
+    positionSuggestions: [
+      "Software Engineer",
+      "Backend Engineer",
+      "Frontend Engineer",
+      "Full Stack Engineer",
+    ],
+    citySuggestions: ["İstanbul", "Ankara", "İzmir"],
   },
 };

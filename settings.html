@@ -126,6 +126,47 @@
           </select>
         </div>
 
+        <!-- Position Suggestions -->
+        <div class="px-6 py-5">
+          <div class="mb-3">
+            <p class="font-semibold text-cb-800">Position Suggestions</p>
+            <p class="text-sm text-slate-400 mt-0.5">
+              Press Enter to add a new suggestion
+            </p>
+          </div>
+          <div class="flex gap-2 mb-3">
+            <input
+              id="input-position-suggestion"
+              type="text"
+              placeholder="e.g. Software Engineer"
+              class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400 flex-1"
+            />
+          </div>
+          <div
+            id="position-suggestions-list"
+            class="flex flex-wrap gap-2"
+          ></div>
+        </div>
+
+        <!-- City Suggestions -->
+        <div class="px-6 py-5">
+          <div class="mb-3">
+            <p class="font-semibold text-cb-800">City Suggestions</p>
+            <p class="text-sm text-slate-400 mt-0.5">
+              Press Enter to add a new suggestion
+            </p>
+          </div>
+          <div class="flex gap-2 mb-3">
+            <input
+              id="input-city-suggestion"
+              type="text"
+              placeholder="e.g. İstanbul"
+              class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400 flex-1"
+            />
+          </div>
+          <div id="city-suggestions-list" class="flex flex-wrap gap-2"></div>
+        </div>
+
         <!-- Save Button -->
         <div class="flex justify-end px-6 py-4">
           <button
@@ -140,6 +181,7 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="js/config.js"></script>
+    <script src="js/storage.js"></script>
     <script src="js/settings.js"></script>
   </body>
 </html>
