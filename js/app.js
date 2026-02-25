@@ -1,4 +1,5 @@
 let sortConfig = { column: "dateApplied", direction: "desc" };
+let filterQuery = "";
 
 function sortApplications(applications) {
   if (!sortConfig.column) return applications;
@@ -24,8 +25,14 @@ function sortApplications(applications) {
 }
 
 function renderTable() {
-  const applications = sortApplications(getApplications());
+  const allApplications = getApplications();
   const tbody = document.getElementById("table-body");
+
+  const filtered = allApplications.filter((app) =>
+    app.company.toLowerCase().includes(filterQuery.toLowerCase()),
+  );
+
+  const applications = sortApplications(filtered);
 
   tbody.innerHTML = "";
 
@@ -108,6 +115,20 @@ document.addEventListener("DOMContentLoaded", () => {
 
   scrollBtn.addEventListener("click", () => {
     window.scrollTo({ top: 0, behavior: "smooth" });
+  });
+
+  const searchClear = document.getElementById("search-clear");
+  document.getElementById("search-input").addEventListener("input", (e) => {
+    filterQuery = e.target.value;
+    searchClear.classList.toggle("hidden", filterQuery === "");
+    renderTable();
+  });
+
+  searchClear.addEventListener("click", () => {
+    document.getElementById("search-input").value = "";
+    filterQuery = "";
+    searchClear.classList.add("hidden");
+    renderTable();
   });
 });
 
