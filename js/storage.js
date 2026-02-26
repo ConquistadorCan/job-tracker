@@ -38,6 +38,7 @@ function getSettings() {
     if (data) {
       const settings = JSON.parse(data);
       const merged = { ...CONFIG.defaults, ...settings };
+      saveSettings(merged);
       return merged;
     }
     const defaults = { ...CONFIG.defaults };
