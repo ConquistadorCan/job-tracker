@@ -12,6 +12,7 @@ const CONFIG = {
     currency: "TRY",
     status: "pending",
     jobType: "onsite",
+    language: "en",
     positionSuggestions: [
       "Software Engineer",
       "Backend Engineer",

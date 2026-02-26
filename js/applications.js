@@ -46,14 +46,17 @@ function renderTable() {
   <tr>
     <td colspan="7" class="py-16 text-center text-slate-400">
       <p class="text-4xl mb-3">📭</p>
-      <p class="font-semibold text-slate-500">No applications yet</p>
+      <p class="font-semibold text-slate-500">${t("emptyTitle")}</p>
       <p class="text-sm mt-1">
-        JAT helps you track your job applications in one place.
+        ${t("emptySubtitle")}
       </p>
-      <p class="text-sm mt-1">Click + Add to add your first application</p>
+      <p class="text-sm mt-1">${t("emptyAction")}</p>
     </td>
   </tr>
 `;
+    const counter = document.getElementById("table-counter");
+    counter.textContent = t("noApplications");
+    updateStats();
     return;
   }
 
@@ -64,7 +67,7 @@ function renderTable() {
     <td class="py-3 px-6">${app.position}</td>
     <td class="py-3 px-6">${app.dateApplied}</td>
     <td class="py-3 px-6">${app.city}</td>
-    <td class="py-3 px-6"><span class="badge badge-${app.jobType}">${capitalize(app.jobType)}</span></td>
+    <td class="py-3 px-6"><span class="badge badge-${app.jobType}">${t(app.jobType)}</span></td>
     <td class="py-3 px-6">${formatSalary(app.salary, app.currency)}</td>
   `;
 
@@ -86,16 +89,24 @@ function renderTable() {
   const count = applications.length;
   counter.textContent =
     count === 0
-      ? "No applications found"
+      ? t("noApplications")
       : count === 1
-        ? "Showing 1 Application"
-        : `Showing ${count} Applications`;
+        ? t("showingOne")
+        : t("showingMany", count);
 
   updateStats();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  renderTable();
+  const LANG_OPTIONS = [
+    { code: "en", label: "English", flag: "gb" },
+    { code: "tr", label: "Türkçe", flag: "tr" },
+    { code: "es", label: "Español", flag: "es" },
+    { code: "de", label: "Deutsch", flag: "de" },
+    { code: "it", label: "Italiano", flag: "it" },
+    { code: "fr", label: "Français", flag: "fr" },
+  ];
+  applyTranslations();
 
   document.getElementById("modal-close").addEventListener("click", closeModal);
   document.getElementById("modal-submit").addEventListener("click", submitForm);
@@ -103,7 +114,6 @@ document.addEventListener("DOMContentLoaded", () => {
     .getElementById("confirm-cancel")
     .addEventListener("click", closeConfirmModal);
   document.getElementById("btn-add").addEventListener("click", openModal);
-  document.getElementById("app-name").textContent = CONFIG.appName;
   document.getElementById("sort-date-icon").textContent = "↓";
 
   const scrollBtn = document.getElementById("scroll-top");
@@ -140,6 +150,87 @@ document.addEventListener("DOMContentLoaded", () => {
     searchClear.classList.add("hidden");
     renderTable();
   });
+
+  const btnLang = document.getElementById("btn-lang");
+  const langOptions = document.getElementById("lang-options");
+
+  function renderLangOptions() {
+    const currentLang = getSettings().language || "en";
+    langOptions.innerHTML = LANG_OPTIONS.filter(
+      (l) => l.code !== currentLang,
+    )
+      .map(
+        (l) => `
+      <button
+        type="button"
+        data-lang="${l.code}"
+        class="w-full flex items-center justify-between px-3 py-1.5 text-cb-700 cursor-pointer"
+      >
+        <span
+          class="inline-flex items-center gap-2 px-2 py-1 rounded-full hover:bg-cb-50"
+        >
+          <span>${l.label}</span>
+          <div class="w-5 h-3 overflow-hidden rounded-sm">
+            <img
+              src="https://flagcdn.com/${l.flag}.svg"
+              alt="${l.code.toUpperCase()}"
+              class="w-full h-full object-cover"
+            />
+          </div>
+        </span>
+      </button>
+    `,
+      )
+      .join("");
+
+    langOptions
+      .querySelectorAll("button[data-lang]")
+      .forEach((optionBtn) => {
+        optionBtn.addEventListener("click", () => {
+          const lang = optionBtn.dataset.lang;
+          const settings = getSettings();
+          settings.language = lang;
+          saveSettings(settings);
+          updateLangButton();
+          applyTranslations();
+          langOptions.classList.add("hidden");
+        });
+      });
+  }
+
+  function updateLangButton() {
+    const lang = getSettings().language || "en";
+    const meta =
+      LANG_OPTIONS.find((l) => l.code === lang) || LANG_OPTIONS[0];
+
+    const flagEl = document.getElementById("lang-flag");
+    const labelEl = document.getElementById("lang-label");
+
+    if (flagEl) {
+      flagEl.src = `https://flagcdn.com/${meta.flag}.svg`;
+      flagEl.alt = meta.code.toUpperCase();
+    }
+    if (labelEl) {
+      labelEl.textContent = meta.code.toUpperCase();
+    }
+
+    renderLangOptions();
+  }
+
+  if (btnLang && langOptions) {
+    btnLang.addEventListener("click", (e) => {
+      e.stopPropagation();
+      const isHidden = langOptions.classList.contains("hidden");
+      if (isHidden) {
+        renderLangOptions();
+        langOptions.classList.remove("hidden");
+      } else {
+        langOptions.classList.add("hidden");
+      }
+    });
+  }
+
+  updateLangButton();
 });
 
 document.getElementById("sort-company").addEventListener("click", () => {
@@ -178,6 +269,11 @@ document.addEventListener("click", () => {
   document
     .querySelectorAll(".options")
     .forEach((o) => o.classList.add("hidden"));
+
+  const langOptions = document.getElementById("lang-options");
+  if (langOptions) {
+    langOptions.classList.add("hidden");
+  }
 });
 
 function openModal() {
@@ -272,14 +368,14 @@ function createStatusDropdown(app) {
 
   wrapper.innerHTML = `
     <button class="badge badge-${app.status} cursor-pointer">
-      ${capitalize(app.status)} ▾
+      ${t(app.status)} ▾
     </button>
     <div class="options hidden fixed bg-white border border-cb-100 rounded-xl shadow-lg z-50 py-1">
       ${statuses
         .map(
           (s) => `
         <div class="px-3 py-1.5 cursor-pointer hover:bg-cb-50 flex items-center gap-2" data-status="${s}">
-          <span class="badge badge-${s}">${capitalize(s)}</span>
+          <span class="badge badge-${s}">${t(s)}</span>
         </div>
       `,
         )
@@ -371,4 +467,75 @@ function validateForm() {
   });
 
   return isValid;
+}
+
+function applyTranslations() {
+  document.getElementById("stat-total-label").textContent = t("statTotal");
+  document.getElementById("stat-interviews-label").textContent =
+    t("statInterviews");
+  document.getElementById("stat-rejected-label").textContent =
+    t("statRejected");
+  document.getElementById("table-title").textContent = t("tableTitle");
+  document.getElementById("search-input").placeholder = t("searchPlaceholder");
+  document.getElementById("btn-add").textContent = t("btnAdd");
+
+  // Table headers
+  document.getElementById("col-company").textContent = t("colCompany");
+  document.getElementById("col-position").textContent = t("colPosition");
+  document.getElementById("col-dateApplied").textContent =
+    t("colDateApplied");
+  document.getElementById("col-city").textContent = t("colCity");
+  document.getElementById("col-jobType").textContent = t("colJobType");
+  document.getElementById("col-salary").textContent = t("colSalary");
+  document.getElementById("col-status").textContent = t("colStatus");
+
+  // Filters
+  const filterSelect = document.getElementById("filter-status");
+  if (filterSelect) {
+    const allOption = filterSelect.querySelector('option[value=""]');
+    if (allOption) allOption.textContent = t("filterAll");
+
+    ["pending", "interview", "accepted", "rejected"].forEach((status) => {
+      const option = filterSelect.querySelector(`option[value="${status}"]`);
+      if (option) option.textContent = t(status);
+    });
+  }
+
+  // Modal texts
+  document.getElementById("modal-title").textContent = t("modalTitle");
+  document.getElementById("field-company").placeholder =
+    t("placeholderCompany");
+  document.getElementById("field-position").placeholder =
+    t("placeholderPosition");
+  document.getElementById("field-city").placeholder = t("placeholderCity");
+  document.getElementById("field-salary").placeholder =
+    t("placeholderSalary");
+  document.getElementById("modal-submit").textContent = t("btnSave");
+
+  // Modal selects
+  const jobTypeSelect = document.getElementById("field-jobtype");
+  ["remote", "onsite", "hybrid"].forEach((type) => {
+    const option = jobTypeSelect.querySelector(`option[value="${type}"]`);
+    if (option) option.textContent = t(type);
+  });
+
+  const statusSelect = document.getElementById("field-status");
+  ["pending", "interview", "accepted", "rejected"].forEach((status) => {
+    const option = statusSelect.querySelector(`option[value="${status}"]`);
+    if (option) option.textContent = t(status);
+  });
+
+  // Validation errors
+  document.getElementById("error-company").textContent = t("errorCompany");
+  document.getElementById("error-position").textContent = t("errorPosition");
+  document.getElementById("error-date").textContent = t("errorDate");
+
+  // Confirm modal
+  document.getElementById("confirm-title").textContent = t("confirmTitle");
+  document.getElementById("confirm-message").textContent =
+    t("confirmMessage");
+  document.getElementById("confirm-cancel").textContent = t("btnCancel");
+  document.getElementById("confirm-delete").textContent = t("btnDelete");
+
+  renderTable();
 }

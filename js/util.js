@@ -1,5 +1,18 @@
 function capitalize(str) {
-  return str.charAt(0).toUpperCase() + str.slice(1);
+  if (!str) return "";
+
+  // Locale-aware first letter uppercasing, especially for Turkish "i"
+  const settings = typeof getSettings === "function" ? getSettings() : null;
+  const lang = settings?.language || "en";
+
+  const firstChar = str.charAt(0);
+  const rest = str.slice(1);
+
+  if (lang === "tr") {
+    return firstChar.toLocaleUpperCase("tr-TR") + rest;
+  }
+
+  return firstChar.toUpperCase() + rest;
 }
 
 function formatSalary(salary, currency) {

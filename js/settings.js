@@ -9,6 +9,7 @@ function loadSettingsToForm() {
 }
 
 document.addEventListener("DOMContentLoaded", () => {
+  applySettingsTranslations();
   loadSettingsToForm();
 
   const settings = getSettings();
@@ -44,6 +45,52 @@ document.addEventListener("DOMContentLoaded", () => {
     window.location.href = "index.html";
   });
 });
+
+function applySettingsTranslations() {
+  // Page title (tab)
+  const titleEl = document.querySelector("title");
+  if (titleEl) {
+    titleEl.textContent = `${t("settingsTitle")} | ${CONFIG.appName}`;
+  }
+
+  // Header
+  document.getElementById("settings-back").textContent = t("settingsBack");
+  document.getElementById("settings-title").textContent = t("settingsTitle");
+
+  // Sections
+  document.getElementById("settings-separator-title").textContent =
+    t("settingsSeparatorTitle");
+  document.getElementById("settings-separator-desc").textContent =
+    t("settingsSeparatorDesc");
+
+  document.getElementById("settings-currency-title").textContent =
+    t("settingsCurrencyTitle");
+  document.getElementById("settings-currency-desc").textContent =
+    t("settingsCurrencyDesc");
+
+  document.getElementById("settings-status-title").textContent =
+    t("settingsStatusTitle");
+  document.getElementById("settings-status-desc").textContent =
+    t("settingsStatusDesc");
+
+  document.getElementById("settings-jobtype-title").textContent =
+    t("settingsJobTypeTitle");
+  document.getElementById("settings-jobtype-desc").textContent =
+    t("settingsJobTypeDesc");
+
+  document.getElementById("settings-position-title").textContent =
+    t("settingsPositionTitle");
+  document.getElementById("settings-position-desc").textContent =
+    t("settingsPositionDesc");
+
+  document.getElementById("settings-city-title").textContent =
+    t("settingsCityTitle");
+  document.getElementById("settings-city-desc").textContent =
+    t("settingsCityDesc");
+
+  // Save button
+  document.getElementById("btn-save").textContent = t("btnSaveSettings");
+}
 
 function renderSuggestions(listId, suggestions, type) {
   const list = document.getElementById(listId);

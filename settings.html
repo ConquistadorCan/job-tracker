@@ -38,13 +38,17 @@
         class="relative flex items-center justify-between mb-8 bg-white rounded-2xl shadow-sm border border-cb-100 px-6 py-4"
       >
         <a
+          id="settings-back"
           href="index.html"
           class="text-cb-600 hover:text-cb-700 font-medium text-sm transition duration-150"
         >
           ← Back
         </a>
         <div class="absolute left-1/2 -translate-x-1/2">
-          <h1 class="font-extrabold text-4xl text-cb-700 tracking-tight">
+          <h1
+            id="settings-title"
+            class="font-extrabold text-4xl text-cb-700 tracking-tight"
+          >
             Settings
           </h1>
         </div>
@@ -57,8 +61,16 @@
         <!-- Thousands Separator -->
         <div class="flex items-center justify-between px-6 py-5">
           <div>
-            <p class="font-semibold text-cb-800">Thousands Separator</p>
-            <p class="text-sm text-slate-400 mt-0.5">
+            <p
+              id="settings-separator-title"
+              class="font-semibold text-cb-800"
+            >
+              Thousands Separator
+            </p>
+            <p
+              id="settings-separator-desc"
+              class="text-sm text-slate-400 mt-0.5"
+            >
               Format used for salary display
             </p>
           </div>
@@ -74,8 +86,16 @@
         <!-- Default Currency -->
         <div class="flex items-center justify-between px-6 py-5">
           <div>
-            <p class="font-semibold text-cb-800">Default Currency</p>
-            <p class="text-sm text-slate-400 mt-0.5">
+            <p
+              id="settings-currency-title"
+              class="font-semibold text-cb-800"
+            >
+              Default Currency
+            </p>
+            <p
+              id="settings-currency-desc"
+              class="text-sm text-slate-400 mt-0.5"
+            >
               Pre-selected currency when adding a new application
             </p>
           </div>
@@ -92,8 +112,13 @@
         <!-- Default Status -->
         <div class="flex items-center justify-between px-6 py-5">
           <div>
-            <p class="font-semibold text-cb-800">Default Status</p>
-            <p class="text-sm text-slate-400 mt-0.5">
+            <p id="settings-status-title" class="font-semibold text-cb-800">
+              Default Status
+            </p>
+            <p
+              id="settings-status-desc"
+              class="text-sm text-slate-400 mt-0.5"
+            >
               Pre-selected status when adding a new application
             </p>
           </div>
@@ -111,8 +136,13 @@
         <!-- Default Job Type -->
         <div class="flex items-center justify-between px-6 py-5">
           <div>
-            <p class="font-semibold text-cb-800">Default Job Type</p>
-            <p class="text-sm text-slate-400 mt-0.5">
+            <p id="settings-jobtype-title" class="font-semibold text-cb-800">
+              Default Job Type
+            </p>
+            <p
+              id="settings-jobtype-desc"
+              class="text-sm text-slate-400 mt-0.5"
+            >
               Pre-selected job type when adding a new application
             </p>
           </div>
@@ -129,8 +159,16 @@
         <!-- Position Suggestions -->
         <div class="px-6 py-5">
           <div class="mb-3">
-            <p class="font-semibold text-cb-800">Position Suggestions</p>
-            <p class="text-sm text-slate-400 mt-0.5">
+            <p
+              id="settings-position-title"
+              class="font-semibold text-cb-800"
+            >
+              Position Suggestions
+            </p>
+            <p
+              id="settings-position-desc"
+              class="text-sm text-slate-400 mt-0.5"
+            >
               Press Enter to add a new suggestion
             </p>
           </div>
@@ -151,8 +189,13 @@
         <!-- City Suggestions -->
         <div class="px-6 py-5">
           <div class="mb-3">
-            <p class="font-semibold text-cb-800">City Suggestions</p>
-            <p class="text-sm text-slate-400 mt-0.5">
+            <p id="settings-city-title" class="font-semibold text-cb-800">
+              City Suggestions
+            </p>
+            <p
+              id="settings-city-desc"
+              class="text-sm text-slate-400 mt-0.5"
+            >
               Press Enter to add a new suggestion
             </p>
           </div>
@@ -182,6 +225,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <script src="js/config.js"></script>
     <script src="js/storage.js"></script>
+    <script src="js/translations.js"></script>
     <script src="js/settings.js"></script>
   </body>
 </html>
