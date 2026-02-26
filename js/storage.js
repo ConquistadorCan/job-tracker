@@ -35,7 +35,11 @@ function updateApplicationStatus(id, newStatus) {
 function getSettings() {
   try {
     const data = localStorage.getItem(CONFIG.settingsKey);
-    if (data) return JSON.parse(data);
+    if (data) {
+      const settings = JSON.parse(data);
+      const merged = { ...CONFIG.defaults, ...settings };
+      return merged;
+    }
     const defaults = { ...CONFIG.defaults };
     saveSettings(defaults);
     return defaults;
