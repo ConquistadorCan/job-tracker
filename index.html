@@ -71,18 +71,18 @@
           <div class="relative flex items-center gap-3 sm:hidden">
             <div class="relative">
               <button
-                id="btn-lang"
+                id="btn-lang-mobile"
                 class="cursor-pointer hover:opacity-70 transition duration-150 flex items-center gap-1 border border-cb-200 rounded-full px-3 py-1 bg-white"
               >
                 <span
-                  id="lang-label"
+                  id="lang-label-mobile"
                   class="text-xs font-medium text-cb-600"
                 >
                   EN
                 </span>
                 <div class="w-5 h-3 overflow-hidden rounded-sm">
                   <img
-                    id="lang-flag"
+                    id="lang-flag-mobile"
                     src="https://flagcdn.com/gb.svg"
                     alt="EN"
                     class="w-full h-full object-cover"
@@ -91,7 +91,7 @@
                 <span class="text-[10px] text-cb-300">▾</span>
               </button>
               <div
-                id="lang-options"
+                id="lang-options-mobile"
                 class="hidden absolute right-0 mt-1 bg-white border border-cb-100 rounded-xl shadow-lg z-50 text-xs min-w-[120px]"
               ></div>
             </div>
@@ -146,18 +146,18 @@
         <div class="relative hidden sm:flex items-center gap-3">
           <div class="relative">
             <button
-              id="btn-lang"
+              id="btn-lang-desktop"
               class="cursor-pointer hover:opacity-70 transition duration-150 flex items-center gap-1 border border-cb-200 rounded-full px-3 py-1 bg-white"
             >
               <span
-                id="lang-label"
+                id="lang-label-desktop"
                 class="text-xs font-medium text-cb-600"
               >
                 EN
               </span>
               <div class="w-5 h-3 overflow-hidden rounded-sm">
                 <img
-                  id="lang-flag"
+                  id="lang-flag-desktop"
                   src="https://flagcdn.com/gb.svg"
                   alt="EN"
                   class="w-full h-full object-cover"
@@ -166,7 +166,7 @@
               <span class="text-[10px] text-cb-300">▾</span>
             </button>
             <div
-              id="lang-options"
+              id="lang-options-desktop"
               class="hidden absolute right-0 mt-1 bg-white border border-cb-100 rounded-xl shadow-lg z-50 text-xs min-w-[120px]"
             ></div>
           </div>
@@ -258,8 +258,54 @@
                 <th id="col-jobType" class="py-3 px-6 font-semibold">
                   Job Type
                 </th>
-                <th id="col-salary" class="py-3 px-6 font-semibold">
-                  Expected Salary
+                <th class="py-3 px-6 font-semibold">
+                  <div class="flex items-center gap-1">
+                    <span id="col-salary">Expected Salary</span>
+                    <button
+                      id="btn-toggle-salary"
+                      class="ml-1 text-cb-300 hover:text-cb-600 cursor-pointer transition duration-150"
+                      type="button"
+                    >
+                      <svg
+                        id="icon-salary-visible"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      >
+                        <path
+                          d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"
+                        />
+                        <circle cx="12" cy="12" r="3" />
+                      </svg>
+                      <svg
+                        id="icon-salary-hidden"
+                        xmlns="http://www.w3.org/2000/svg"
+                        width="16"
+                        height="16"
+                        viewBox="0 0 24 24"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="2"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                        class="hidden"
+                      >
+                        <path
+                          d="M17.94 17.94A10.07 10.07 0 0 1 12 20c-7 0-11-8-11-8a18.45 18.45 0 0 1 5.06-5.94"
+                        />
+                        <path
+                          d="M9.9 4.24A9.12 9.12 0 0 1 12 4c7 0 11 8 11 8a18.5 18.5 0 0 1-2.16 3.19"
+                        />
+                        <line x1="1" y1="1" x2="23" y2="23" />
+                      </svg>
+                    </button>
+                  </div>
                 </th>
                 <th id="col-status" class="py-3 px-6 font-semibold">Status</th>
               </tr>
@@ -272,7 +318,9 @@
           </table>
         </div>
 
-        <div class="px-4 sm:px-6 py-3 border-t border-cb-50 text-xs text-slate-400">
+        <div
+          class="px-4 sm:px-6 py-3 border-t border-cb-50 text-xs text-slate-400"
+        >
           <span id="table-counter">—</span>
         </div>
       </main>

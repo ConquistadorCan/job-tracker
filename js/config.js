@@ -13,6 +13,7 @@ const CONFIG = {
     status: "pending",
     jobType: "onsite",
     language: "en",
+    salaryHidden: false,
     positionSuggestions: [
       "Software Engineer",
       "Backend Engineer",
