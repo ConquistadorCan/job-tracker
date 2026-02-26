@@ -1,48 +1,63 @@
-# JAT — Job Application Tracker
+## JAT — Job Application Tracker
 
-JAT is a lightweight, browser-based job application tracker built with vanilla HTML, JavaScript, and Tailwind CSS. No accounts, no backend, no nonsense — just open it and start tracking.
+JAT is a small web app for tracking job applications in the browser. It runs fully on the client and stores data in `localStorage`.
 
-🌐 **Live Demo:** [jat-career.netlify.app](https://jat-career.netlify.app)
+### Features
 
-## Why JAT?
+- Add applications with company, position, date, city, job type, expected salary and currency.
+- Update status (Pending, Interview, Accepted, Rejected) directly from the table.
+- Delete applications with a confirmation modal.
+- Search by company and filter by status.
+- Sort by company name or application date.
+- See total applications, interviews and rejections in the header.
+- Configure defaults (currency, status, job type) and suggestion lists (positions, cities) in the settings page.
 
-Keeping track of dozens of job applications across different companies, positions, and statuses can get messy fast. JAT gives you a clean, minimal interface to log every application, update its status as things progress, and get a quick overview of where you stand.
+### Internationalization
 
-It was also built as a hands-on learning project to practice core web technologies — HTML, JavaScript, and Tailwind CSS — without any frameworks or build tools.
+UI text is driven by `js/translations.js` via the `TRANSLATIONS` object and the `t(key, ...args)` helper.
 
-## Features
+- Supported languages: English (`en`), Turkish (`tr`), Spanish (`es`), German (`de`), Italian (`it`), French (`fr`).
+- The active language is stored in `settings.language`.
+- The language switcher in the header shows the current language and flag.
+- The dropdown only lists languages that are not currently selected.
 
-- **Add applications** — Log company, position, date, city, job type, expected salary and currency
-- **Update status** — Change application status (Pending, Interview, Accepted, Rejected) directly from the table with a custom dropdown
-- **Delete applications** — Remove entries with a confirmation modal to prevent accidental deletions
-- **Filter & search** — Filter by status or search by company name in real time
-- **Sort** — Sort the table by company name or application date
-- **Statistics** — See total applications, interviews, and rejections at a glance
-- **Settings** — Configure default values, salary formatting, and manage position/city suggestions
-- **Smart suggestions** — Position and city fields learn from your past entries and suggest them next time
-- **Persistent storage** — All data is saved in your browser via localStorage, no account needed
-- **Empty state** — A friendly message when no applications are found
+To add a new language:
 
-## Tech Stack
+1. Add a new language entry to `TRANSLATIONS` in `js/translations.js` (for example `pt`).
+2. Provide values for the same keys used by the existing languages.
 
-- HTML
-- JavaScript (vanilla)
-- Tailwind CSS (via CDN)
+### Responsive design
 
-## File Structure
+The layout is built with Tailwind CSS using a mobile‑first approach.
 
-```
-jat/
-  index.html          — main application page
-  settings.html       — settings page
-  js/
-    config.js         — app-wide configuration and defaults
-    storage.js        — all localStorage read/write operations
-    util.js           — utility functions (e.g. salary formatting)
-    applications.js   — UI rendering, table, modals and interactions
-    settings.js       — settings page logic
-```
+- On small screens the header stacks vertically and the logo, language switcher and settings icon share one row.
+- The search input uses full width on mobile; the filter select and `+ Add` button wrap as needed.
+- The table is wrapped in `overflow-x-auto` so it can be scrolled horizontally on narrow screens.
+- Modals are centered, padded, and limited in height (`max-h` with `overflow-y-auto`) so they remain usable on small devices.
 
-## Running Locally
+### Running locally
 
-Clone the repo and open `index.html` with [Live Server](https://marketplace.visualstudio.com/items?itemName=ritwickdey.LiveServer) or any local web server. No build step required.
+No build step is required; this is a static site.
+
+1. Clone the repo or download the files.
+2. Open `index.html` in a browser, either:
+   - directly from the filesystem, or
+   - via a simple HTTP server (for example `npx serve` or `python -m http.server`).
+3. Data is stored in the browser’s `localStorage`, so it does not sync across devices or browsers.
+
+### Project structure
+
+- `index.html` — main application page
+- `settings.html` — settings page
+- `js/config.js` — app configuration and defaults
+- `js/storage.js` — `localStorage` access and CRUD helpers
+- `js/translations.js` — translation data and `t()` helper
+- `js/util.js` — utility functions (for example salary formatting)
+- `js/applications.js` — main page logic (table, filters, modals)
+- `js/settings.js` — settings page logic
+
+### Notes
+
+- The app is purely client-side; there is no backend or authentication.
+- For production use you would normally connect this UI to an API or other persistent storage.
+

@@ -33,9 +33,9 @@
   <body
     class="font-sans bg-gradient-to-br from-cb-50 to-cb-100 min-h-screen text-cb-950"
   >
-    <div class="max-w-5xl mx-auto px-6 py-8">
+    <div class="max-w-5xl mx-auto px-4 py-4 sm:px-6 sm:py-8">
       <header
-        class="relative flex items-center justify-between mb-8 bg-white rounded-2xl shadow-sm border border-cb-100 px-6 py-4"
+        class="relative flex items-center justify-between mb-6 sm:mb-8 bg-white rounded-2xl shadow-sm border border-cb-100 px-4 py-3 sm:px-6 sm:py-4"
       >
         <a
           id="settings-back"
@@ -47,7 +47,7 @@
         <div class="absolute left-1/2 -translate-x-1/2">
           <h1
             id="settings-title"
-            class="font-extrabold text-4xl text-cb-700 tracking-tight"
+            class="font-extrabold text-2xl sm:text-4xl text-cb-700 tracking-tight"
           >
             Settings
           </h1>
@@ -59,7 +59,7 @@
         class="bg-white rounded-2xl shadow-sm border border-cb-100 divide-y divide-cb-50"
       >
         <!-- Thousands Separator -->
-        <div class="flex items-center justify-between px-6 py-5">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5">
           <div>
             <p
               id="settings-separator-title"
@@ -84,7 +84,7 @@
         </div>
 
         <!-- Default Currency -->
-        <div class="flex items-center justify-between px-6 py-5">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5">
           <div>
             <p
               id="settings-currency-title"
@@ -110,7 +110,7 @@
         </div>
 
         <!-- Default Status -->
-        <div class="flex items-center justify-between px-6 py-5">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5">
           <div>
             <p id="settings-status-title" class="font-semibold text-cb-800">
               Default Status
@@ -134,7 +134,7 @@
         </div>
 
         <!-- Default Job Type -->
-        <div class="flex items-center justify-between px-6 py-5">
+        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5">
           <div>
             <p id="settings-jobtype-title" class="font-semibold text-cb-800">
               Default Job Type
@@ -157,7 +157,7 @@
         </div>
 
         <!-- Position Suggestions -->
-        <div class="px-6 py-5">
+        <div class="px-4 sm:px-6 py-4 sm:py-5">
           <div class="mb-3">
             <p
               id="settings-position-title"
@@ -187,7 +187,7 @@
         </div>
 
         <!-- City Suggestions -->
-        <div class="px-6 py-5">
+        <div class="px-4 sm:px-6 py-4 sm:py-5">
           <div class="mb-3">
             <p id="settings-city-title" class="font-semibold text-cb-800">
               City Suggestions
@@ -211,7 +211,7 @@
         </div>
 
         <!-- Save Button -->
-        <div class="flex justify-end px-6 py-4">
+        <div class="flex justify-end px-4 sm:px-6 py-4">
           <button
             id="btn-save"
             class="bg-cb-600 text-white font-semibold rounded-lg px-6 py-2 text-sm hover:bg-cb-700 transition duration-150 cursor-pointer"
