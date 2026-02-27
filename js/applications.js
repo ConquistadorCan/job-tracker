@@ -324,6 +324,7 @@ function applyTranslations() {
     "col-salary": "colSalary",
     "col-status": "colStatus",
     "btn-add": "btnAdd",
+    "disclaimer-text": "disclaimerText",
   };
 
   Object.entries(ids).forEach(([id, key]) => {

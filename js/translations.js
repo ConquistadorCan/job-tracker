@@ -49,6 +49,10 @@ const TRANSLATIONS = {
     errorPosition: "Position is required.",
     errorDate: "Date is required.",
 
+    // Disclaimer
+    disclaimerText:
+      'Data stored locally nothing sent to any server. Provided "as is".',
+
     // Table counter
     noApplications: "No applications found",
     showingOne: "Showing 1 application",
@@ -131,6 +135,10 @@ const TRANSLATIONS = {
     errorPosition: "Pozisyon alanı zorunludur.",
     errorDate: "Tarih alanı zorunludur.",
 
+    // Disclaimer
+    disclaimerText:
+      'Veriler yalnızca tarayıcınızda saklanır hiçbir sunucuya gönderilmez. "Olduğu gibi" sunulmaktadır.',
+
     // Table counter
     noApplications: "Başvuru bulunamadı",
     showingOne: "1 başvuru gösteriliyor",
@@ -212,6 +220,10 @@ const TRANSLATIONS = {
     errorCompany: "La empresa es obligatoria.",
     errorPosition: "El puesto es obligatorio.",
     errorDate: "La fecha es obligatoria.",
+
+    // Disclaimer
+    disclaimerText:
+      'Datos almacenados localmente nada se envía a ningún servidor. Proporcionado "tal cual".',
 
     // Table counter
     noApplications: "No se encontraron solicitudes",
@@ -297,6 +309,10 @@ const TRANSLATIONS = {
     errorCompany: "Das Feld Firma ist erforderlich.",
     errorPosition: "Das Feld Position ist erforderlich.",
     errorDate: "Das Feld Datum ist erforderlich.",
+
+    // Disclaimer
+    disclaimerText:
+      'Daten werden lokal gespeichert nichts wird an Server gesendet. Wird "wie besehen" bereitgestellt.',
 
     // Table counter
     noApplications: "Keine Bewerbungen gefunden",
@@ -384,6 +400,10 @@ const TRANSLATIONS = {
     errorPosition: "Il campo Posizione è obbligatorio.",
     errorDate: "Il campo Data è obbligatorio.",
 
+    // Disclaimer
+    disclaimerText:
+      'Dati archiviati localmente nulla viene inviato a server. Fornito "così com\'è".',
+
     // Table counter
     noApplications: "Nessuna candidatura trovata",
     showingOne: "1 candidatura mostrata",
@@ -469,6 +489,10 @@ const TRANSLATIONS = {
     errorCompany: "Le champ Entreprise est obligatoire.",
     errorPosition: "Le champ Poste est obligatoire.",
     errorDate: "Le champ Date est obligatoire.",
+
+    // Disclaimer
+    disclaimerText:
+      'Données stockées localement rien n\'est envoyé à des serveurs. Fourni "tel quel".',
 
     // Table counter
     noApplications: "Aucune candidature trouvée",
