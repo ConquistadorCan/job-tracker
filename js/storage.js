@@ -17,9 +17,7 @@ function addApplication(application) {
 }
 
 function deleteApplication(id) {
-  const applications = getApplications();
-  const filtered = applications.filter((app) => app.id !== id);
-  saveApplications(filtered);
+  saveApplications(getApplications().filter((app) => app.id !== id));
 }
 
 function updateApplicationStatus(id, newStatus) {
@@ -36,17 +34,22 @@ function getSettings() {
   try {
     const data = localStorage.getItem(CONFIG.settingsKey);
     if (data) {
-      const settings = JSON.parse(data);
-      const merged = { ...CONFIG.defaults, ...settings };
-      saveSettings(merged);
-      return merged;
+      const saved = JSON.parse(data);
+      // Merge sadece eksik key varsa yap
+      const hasAllKeys = Object.keys(CONFIG.defaults).every((k) => k in saved);
+      if (!hasAllKeys) {
+        const merged = { ...CONFIG.defaults, ...saved };
+        saveSettings(merged);
+        return merged;
+      }
+      return saved;
     }
-    const defaults = { ...CONFIG.defaults };
-    saveSettings(defaults);
-    return defaults;
   } catch {
-    return { ...CONFIG.defaults };
+    // ignore
   }
+  const defaults = { ...CONFIG.defaults };
+  saveSettings(defaults);
+  return defaults;
 }
 
 function saveSettings(settings) {

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Settings | JAT</title>
 
+    <link rel="icon" type="image/png" href="assets/favicon.svg" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -13,6 +14,8 @@
     />
 
     <style type="text/tailwindcss">
+      @variant dark (&:where(.dark, .dark *));
+
       @theme {
         --color-cb-50: #f1f5fd;
         --color-cb-100: #dfe8fa;
@@ -27,27 +30,57 @@
         --color-cb-950: #1d234e;
         --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
       }
+
+      .settings-dropdown-btn {
+        @apply cursor-pointer hover:opacity-80 transition duration-150 flex items-center justify-between gap-2 border border-cb-200 dark:border-cb-700 rounded-lg px-4 py-2 text-sm bg-white dark:bg-cb-800 text-cb-900 dark:text-cb-50 font-medium min-w-fit;
+      }
+
+      .settings-dropdown-menu {
+        @apply hidden absolute left-0 sm:left-auto sm:right-0 mt-1 bg-white dark:bg-cb-800 border border-cb-100 dark:border-cb-700 rounded-xl shadow-lg z-50 text-sm min-w-fit py-1;
+      }
+
+      .settings-dropdown-item {
+        @apply w-full flex items-center gap-2 px-3 py-1.5 cursor-pointer hover:bg-cb-50 dark:hover:bg-cb-700 rounded-lg text-cb-900 dark:text-cb-50 font-medium whitespace-nowrap;
+      }
+
+      .settings-dropdown-item.active {
+        @apply text-cb-600 dark:text-cb-300 font-semibold;
+      }
     </style>
+
+    <script>
+      (function () {
+        const settings = JSON.parse(
+          localStorage.getItem("job-tracker-settings") || "{}",
+        );
+        const theme = settings.theme || "system";
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (theme === "dark" || (theme === "system" && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
   </head>
 
   <body
-    class="font-sans bg-gradient-to-br from-cb-50 to-cb-100 min-h-screen text-cb-950"
+    class="font-sans bg-gradient-to-br from-cb-50 to-cb-100 dark:from-cb-950 dark:to-cb-900 min-h-screen text-cb-950 dark:text-cb-50"
   >
     <div class="max-w-5xl mx-auto px-4 py-4 sm:px-6 sm:py-8">
       <header
-        class="relative flex items-center justify-between mb-6 sm:mb-8 bg-white rounded-2xl shadow-sm border border-cb-100 px-4 py-3 sm:px-6 sm:py-4"
+        class="relative flex items-center justify-between mb-6 sm:mb-8 bg-white dark:bg-cb-900 rounded-2xl shadow-sm border border-cb-100 dark:border-cb-800 px-4 py-3 sm:px-6 sm:py-4"
       >
-        <a
+        <button
           id="settings-back"
-          href="index.html"
-          class="text-cb-600 hover:text-cb-700 font-medium text-sm transition duration-150"
+          class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-cb-600 text-white font-semibold text-sm hover:bg-cb-700 dark:bg-transparent dark:border dark:border-cb-400 dark:text-cb-300 dark:hover:bg-cb-800/60 dark:hover:text-cb-100 transition duration-150 cursor-pointer shadow-sm dark:shadow-none"
         >
           ← Back
-        </a>
+        </button>
         <div class="absolute left-1/2 -translate-x-1/2">
           <h1
             id="settings-title"
-            class="font-extrabold text-2xl sm:text-4xl text-cb-700 tracking-tight"
+            class="font-extrabold text-2xl sm:text-4xl text-cb-700 dark:text-cb-300 tracking-tight"
           >
             Settings
           </h1>
@@ -56,104 +89,284 @@
       </header>
 
       <main
-        class="bg-white rounded-2xl shadow-sm border border-cb-100 divide-y divide-cb-50"
+        class="bg-white dark:bg-cb-900 rounded-2xl shadow-sm border border-cb-100 dark:border-cb-800 divide-y divide-cb-50 dark:divide-cb-800"
       >
+        <!-- Language -->
+        <div
+          class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5"
+        >
+          <div>
+            <p
+              id="settings-lang-title"
+              class="font-semibold text-cb-800 dark:text-cb-100"
+            >
+              Language
+            </p>
+            <p
+              id="settings-lang-desc"
+              class="text-sm text-slate-400 dark:text-cb-500 mt-0.5"
+            >
+              Display language for the interface
+            </p>
+          </div>
+          <div class="relative">
+            <button id="btn-lang-settings" class="settings-dropdown-btn">
+              <div class="flex items-center gap-2">
+                <div class="w-5 h-3 overflow-hidden rounded-sm flex-shrink-0">
+                  <img
+                    id="lang-flag-settings"
+                    src="https://flagcdn.com/gb.svg"
+                    alt="EN"
+                    class="w-full h-full object-cover"
+                  />
+                </div>
+                <span id="lang-label-settings" class="font-medium"
+                  >English</span
+                >
+              </div>
+              <span class="text-[10px] text-cb-300">▾</span>
+            </button>
+            <div
+              id="lang-options-settings"
+              class="settings-dropdown-menu"
+            ></div>
+          </div>
+        </div>
+
+        <!-- Theme -->
+        <div
+          class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5"
+        >
+          <div>
+            <p
+              id="settings-theme-title"
+              class="font-semibold text-cb-800 dark:text-cb-100"
+            >
+              Theme
+            </p>
+            <p
+              id="settings-theme-desc"
+              class="text-sm text-slate-400 dark:text-cb-500 mt-0.5"
+            >
+              Choose your preferred color theme
+            </p>
+          </div>
+          <div class="flex gap-2">
+            <button
+              data-theme="light"
+              class="theme-btn border border-cb-200 dark:border-cb-700 dark:text-cb-300 rounded-lg px-4 py-2 text-sm cursor-pointer transition duration-150 hover:bg-cb-50 dark:hover:bg-cb-800"
+            >
+              ☀️ Light
+            </button>
+            <button
+              data-theme="system"
+              class="theme-btn border border-cb-200 dark:border-cb-700 dark:text-cb-300 rounded-lg px-4 py-2 text-sm cursor-pointer transition duration-150 hover:bg-cb-50 dark:hover:bg-cb-800"
+            >
+              💻 System
+            </button>
+            <button
+              data-theme="dark"
+              class="theme-btn border border-cb-200 dark:border-cb-700 dark:text-cb-300 rounded-lg px-4 py-2 text-sm cursor-pointer transition duration-150 hover:bg-cb-50 dark:hover:bg-cb-800"
+            >
+              🌙 Dark
+            </button>
+          </div>
+        </div>
+
         <!-- Thousands Separator -->
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5">
+        <div
+          class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5"
+        >
           <div>
             <p
               id="settings-separator-title"
-              class="font-semibold text-cb-800"
+              class="font-semibold text-cb-800 dark:text-cb-100"
             >
               Thousands Separator
             </p>
             <p
               id="settings-separator-desc"
-              class="text-sm text-slate-400 mt-0.5"
+              class="text-sm text-slate-400 dark:text-cb-500 mt-0.5"
             >
               Format used for salary display
             </p>
           </div>
-          <select
-            id="setting-separator"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          >
-            <option value=".">1.000.000 (dot)</option>
-            <option value=",">1,000,000 (comma)</option>
-          </select>
+          <div class="relative">
+            <button id="btn-separator" class="settings-dropdown-btn">
+              <span id="label-separator">1.000.000 (dot)</span>
+              <span class="text-[10px] text-cb-300">▾</span>
+            </button>
+            <div id="options-separator" class="settings-dropdown-menu">
+              <button
+                class="settings-dropdown-item"
+                data-value="."
+                data-label="1.000.000 (dot)"
+              >
+                1.000.000 (dot)
+              </button>
+              <button
+                class="settings-dropdown-item"
+                data-value=","
+                data-label="1,000,000 (comma)"
+              >
+                1,000,000 (comma)
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Default Currency -->
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5">
+        <div
+          class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5"
+        >
           <div>
             <p
               id="settings-currency-title"
-              class="font-semibold text-cb-800"
+              class="font-semibold text-cb-800 dark:text-cb-100"
             >
               Default Currency
             </p>
             <p
               id="settings-currency-desc"
-              class="text-sm text-slate-400 mt-0.5"
+              class="text-sm text-slate-400 dark:text-cb-500 mt-0.5"
             >
               Pre-selected currency when adding a new application
             </p>
           </div>
-          <select
-            id="setting-currency"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          >
-            <option value="TRY">₺ TRY</option>
-            <option value="USD">$ USD</option>
-            <option value="EUR">€ EUR</option>
-          </select>
+          <div class="relative">
+            <button id="btn-currency" class="settings-dropdown-btn">
+              <span id="label-currency">₺ TRY</span>
+              <span class="text-[10px] text-cb-300">▾</span>
+            </button>
+            <div id="options-currency" class="settings-dropdown-menu">
+              <button
+                class="settings-dropdown-item"
+                data-value="TRY"
+                data-label="₺ TRY"
+              >
+                ₺ TRY
+              </button>
+              <button
+                class="settings-dropdown-item"
+                data-value="USD"
+                data-label="$ USD"
+              >
+                $ USD
+              </button>
+              <button
+                class="settings-dropdown-item"
+                data-value="EUR"
+                data-label="€ EUR"
+              >
+                € EUR
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Default Status -->
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5">
+        <div
+          class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5"
+        >
           <div>
-            <p id="settings-status-title" class="font-semibold text-cb-800">
+            <p
+              id="settings-status-title"
+              class="font-semibold text-cb-800 dark:text-cb-100"
+            >
               Default Status
             </p>
             <p
               id="settings-status-desc"
-              class="text-sm text-slate-400 mt-0.5"
+              class="text-sm text-slate-400 dark:text-cb-500 mt-0.5"
             >
               Pre-selected status when adding a new application
             </p>
           </div>
-          <select
-            id="setting-status"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          >
-            <option value="pending">Pending</option>
-            <option value="interview">Interview</option>
-            <option value="accepted">Accepted</option>
-            <option value="rejected">Rejected</option>
-          </select>
+          <div class="relative">
+            <button id="btn-status" class="settings-dropdown-btn">
+              <span id="label-status">Pending</span>
+              <span class="text-[10px] text-cb-300">▾</span>
+            </button>
+            <div id="options-status" class="settings-dropdown-menu">
+              <button
+                class="settings-dropdown-item"
+                data-value="pending"
+                data-label="Pending"
+              >
+                Pending
+              </button>
+              <button
+                class="settings-dropdown-item"
+                data-value="interview"
+                data-label="Interview"
+              >
+                Interview
+              </button>
+              <button
+                class="settings-dropdown-item"
+                data-value="accepted"
+                data-label="Accepted"
+              >
+                Accepted
+              </button>
+              <button
+                class="settings-dropdown-item"
+                data-value="rejected"
+                data-label="Rejected"
+              >
+                Rejected
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Default Job Type -->
-        <div class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5">
+        <div
+          class="flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between px-4 sm:px-6 py-4 sm:py-5"
+        >
           <div>
-            <p id="settings-jobtype-title" class="font-semibold text-cb-800">
+            <p
+              id="settings-jobtype-title"
+              class="font-semibold text-cb-800 dark:text-cb-100"
+            >
               Default Job Type
             </p>
             <p
               id="settings-jobtype-desc"
-              class="text-sm text-slate-400 mt-0.5"
+              class="text-sm text-slate-400 dark:text-cb-500 mt-0.5"
             >
               Pre-selected job type when adding a new application
             </p>
           </div>
-          <select
-            id="setting-jobtype"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          >
-            <option value="remote">Remote</option>
-            <option value="onsite">Onsite</option>
-            <option value="hybrid">Hybrid</option>
-          </select>
+          <div class="relative">
+            <button id="btn-jobtype" class="settings-dropdown-btn">
+              <span id="label-jobtype">Onsite</span>
+              <span class="text-[10px] text-cb-300">▾</span>
+            </button>
+            <div id="options-jobtype" class="settings-dropdown-menu">
+              <button
+                class="settings-dropdown-item"
+                data-value="remote"
+                data-label="Remote"
+              >
+                Remote
+              </button>
+              <button
+                class="settings-dropdown-item"
+                data-value="onsite"
+                data-label="Onsite"
+              >
+                Onsite
+              </button>
+              <button
+                class="settings-dropdown-item"
+                data-value="hybrid"
+                data-label="Hybrid"
+              >
+                Hybrid
+              </button>
+            </div>
+          </div>
         </div>
 
         <!-- Position Suggestions -->
@@ -161,25 +374,23 @@
           <div class="mb-3">
             <p
               id="settings-position-title"
-              class="font-semibold text-cb-800"
+              class="font-semibold text-cb-800 dark:text-cb-100"
             >
               Position Suggestions
             </p>
             <p
               id="settings-position-desc"
-              class="text-sm text-slate-400 mt-0.5"
+              class="text-sm text-slate-400 dark:text-cb-500 mt-0.5"
             >
               Press Enter to add a new suggestion
             </p>
           </div>
-          <div class="flex gap-2 mb-3">
-            <input
-              id="input-position-suggestion"
-              type="text"
-              placeholder="e.g. Software Engineer"
-              class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400 flex-1"
-            />
-          </div>
+          <input
+            id="input-position-suggestion"
+            type="text"
+            placeholder="e.g. Software Engineer"
+            class="w-full border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400 mb-3"
+          />
           <div
             id="position-suggestions-list"
             class="flex flex-wrap gap-2"
@@ -189,35 +400,26 @@
         <!-- City Suggestions -->
         <div class="px-4 sm:px-6 py-4 sm:py-5">
           <div class="mb-3">
-            <p id="settings-city-title" class="font-semibold text-cb-800">
+            <p
+              id="settings-city-title"
+              class="font-semibold text-cb-800 dark:text-cb-100"
+            >
               City Suggestions
             </p>
             <p
               id="settings-city-desc"
-              class="text-sm text-slate-400 mt-0.5"
+              class="text-sm text-slate-400 dark:text-cb-500 mt-0.5"
             >
               Press Enter to add a new suggestion
             </p>
           </div>
-          <div class="flex gap-2 mb-3">
-            <input
-              id="input-city-suggestion"
-              type="text"
-              placeholder="e.g. İstanbul"
-              class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400 flex-1"
-            />
-          </div>
+          <input
+            id="input-city-suggestion"
+            type="text"
+            placeholder="e.g. İstanbul"
+            class="w-full border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400 mb-3"
+          />
           <div id="city-suggestions-list" class="flex flex-wrap gap-2"></div>
-        </div>
-
-        <!-- Save Button -->
-        <div class="flex justify-end px-4 sm:px-6 py-4">
-          <button
-            id="btn-save"
-            class="bg-cb-600 text-white font-semibold rounded-lg px-6 py-2 text-sm hover:bg-cb-700 transition duration-150 cursor-pointer"
-          >
-            Save Settings
-          </button>
         </div>
       </main>
     </div>
@@ -226,6 +428,7 @@
     <script src="js/config.js"></script>
     <script src="js/storage.js"></script>
     <script src="js/translations.js"></script>
+    <script src="js/util.js"></script>
     <script src="js/settings.js"></script>
   </body>
 </html>

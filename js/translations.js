@@ -62,6 +62,10 @@ const TRANSLATIONS = {
     // Settings
     settingsTitle: "Settings",
     settingsBack: "← Back",
+    settingsLangTitle: "Language",
+    settingsLangDesc: "Display language for the interface",
+    settingsThemeTitle: "Theme",
+    settingsThemeDesc: "Choose your preferred color theme",
     settingsSeparatorTitle: "Thousands Separator",
     settingsSeparatorDesc: "Format used for salary display",
     settingsCurrencyTitle: "Default Currency",
@@ -140,6 +144,10 @@ const TRANSLATIONS = {
     // Settings
     settingsTitle: "Ayarlar",
     settingsBack: "← Geri",
+    settingsLangTitle: "Dil",
+    settingsLangDesc: "Arayüz görüntüleme dili",
+    settingsThemeTitle: "Tema",
+    settingsThemeDesc: "Tercih ettiğiniz renk temasını seçin",
     settingsSeparatorTitle: "Binlik Ayraç",
     settingsSeparatorDesc: "Maaş gösterimi için kullanılan format",
     settingsCurrencyTitle: "Varsayılan Para Birimi",
@@ -214,20 +222,22 @@ const TRANSLATIONS = {
     emptyTitle: "Todavía no hay solicitudes",
     emptySubtitle:
       "JAT te ayuda a seguir tus solicitudes de trabajo en un solo lugar.",
-    emptyAction:
-      "Haz clic en + Añadir para agregar tu primera solicitud",
+    emptyAction: "Haz clic en + Añadir para agregar tu primera solicitud",
 
     // Settings
     settingsTitle: "Ajustes",
     settingsBack: "← Volver",
+    settingsLangTitle: "Idioma",
+    settingsLangDesc: "Idioma de visualización de la interfaz",
+    settingsThemeTitle: "Tema",
+    settingsThemeDesc: "Elige tu tema de color preferido",
     settingsSeparatorTitle: "Separador de miles",
     settingsSeparatorDesc: "Formato usado para mostrar el salario",
     settingsCurrencyTitle: "Moneda por defecto",
     settingsCurrencyDesc:
       "Moneda preseleccionada al añadir una nueva solicitud",
     settingsStatusTitle: "Estado por defecto",
-    settingsStatusDesc:
-      "Estado preseleccionado al añadir una nueva solicitud",
+    settingsStatusDesc: "Estado preseleccionado al añadir una nueva solicitud",
     settingsJobTypeTitle: "Tipo de trabajo por defecto",
     settingsJobTypeDesc:
       "Tipo de trabajo preseleccionado al añadir una nueva solicitud",
@@ -297,12 +307,15 @@ const TRANSLATIONS = {
     emptyTitle: "Noch keine Bewerbungen",
     emptySubtitle:
       "JAT hilft dir, deine Bewerbungen an einem Ort zu verwalten.",
-    emptyAction:
-      "Klicke auf + Hinzufügen, um deine erste Bewerbung anzulegen",
+    emptyAction: "Klicke auf + Hinzufügen, um deine erste Bewerbung anzulegen",
 
     // Settings
     settingsTitle: "Einstellungen",
     settingsBack: "← Zurück",
+    settingsLangTitle: "Sprache",
+    settingsLangDesc: "Anzeigesprache der Benutzeroberfläche",
+    settingsThemeTitle: "Design",
+    settingsThemeDesc: "Wähle dein bevorzugtes Farbschema",
     settingsSeparatorTitle: "Tausendertrennzeichen",
     settingsSeparatorDesc: "Format, das für die Gehaltsanzeige verwendet wird",
     settingsCurrencyTitle: "Standardwährung",
@@ -315,11 +328,9 @@ const TRANSLATIONS = {
     settingsJobTypeDesc:
       "Vorausgewählte Stellenart beim Hinzufügen einer neuen Bewerbung",
     settingsPositionTitle: "Positionsvorschläge",
-    settingsPositionDesc:
-      "Drücke Enter, um einen neuen Vorschlag hinzuzufügen",
+    settingsPositionDesc: "Drücke Enter, um einen neuen Vorschlag hinzuzufügen",
     settingsCityTitle: "Stadtvorschläge",
-    settingsCityDesc:
-      "Drücke Enter, um einen neuen Vorschlag hinzuzufügen",
+    settingsCityDesc: "Drücke Enter, um einen neuen Vorschlag hinzuzufügen",
     btnSaveSettings: "Einstellungen speichern",
   },
 
@@ -382,12 +393,15 @@ const TRANSLATIONS = {
     emptyTitle: "Ancora nessuna candidatura",
     emptySubtitle:
       "JAT ti aiuta a tenere traccia delle tue candidature in un unico posto.",
-    emptyAction:
-      "Fai clic su + Aggiungi per inserire la tua prima candidatura",
+    emptyAction: "Fai clic su + Aggiungi per inserire la tua prima candidatura",
 
     // Settings
     settingsTitle: "Impostazioni",
     settingsBack: "← Indietro",
+    settingsLangTitle: "Lingua",
+    settingsLangDesc: "Lingua di visualizzazione dell'interfaccia",
+    settingsThemeTitle: "Tema",
+    settingsThemeDesc: "Scegli il tema colori preferito",
     settingsSeparatorTitle: "Separatore delle migliaia",
     settingsSeparatorDesc: "Formato usato per mostrare lo stipendio",
     settingsCurrencyTitle: "Valuta predefinita",
@@ -400,11 +414,9 @@ const TRANSLATIONS = {
     settingsJobTypeDesc:
       "Tipo di lavoro preselezionato quando aggiungi una nuova candidatura",
     settingsPositionTitle: "Suggerimenti per posizioni",
-    settingsPositionDesc:
-      "Premi Invio per aggiungere un nuovo suggerimento",
+    settingsPositionDesc: "Premi Invio per aggiungere un nuovo suggerimento",
     settingsCityTitle: "Suggerimenti per città",
-    settingsCityDesc:
-      "Premi Invio per aggiungere un nuovo suggerimento",
+    settingsCityDesc: "Premi Invio per aggiungere un nuovo suggerimento",
     btnSaveSettings: "Salva impostazioni",
   },
 
@@ -465,14 +477,16 @@ const TRANSLATIONS = {
 
     // Empty state
     emptyTitle: "Aucune candidature pour l'instant",
-    emptySubtitle:
-      "JAT t'aide à suivre tes candidatures à un seul endroit.",
-    emptyAction:
-      "Clique sur + Ajouter pour créer ta première candidature",
+    emptySubtitle: "JAT t'aide à suivre tes candidatures à un seul endroit.",
+    emptyAction: "Clique sur + Ajouter pour créer ta première candidature",
 
     // Settings
     settingsTitle: "Paramètres",
     settingsBack: "← Retour",
+    settingsLangTitle: "Langue",
+    settingsLangDesc: "Langue d'affichage de l'interface",
+    settingsThemeTitle: "Thème",
+    settingsThemeDesc: "Choisis ton thème de couleur préféré",
     settingsSeparatorTitle: "Séparateur de milliers",
     settingsSeparatorDesc: "Format utilisé pour l'affichage du salaire",
     settingsCurrencyTitle: "Devise par défaut",
@@ -488,8 +502,7 @@ const TRANSLATIONS = {
     settingsPositionDesc:
       "Appuie sur Entrée pour ajouter une nouvelle suggestion",
     settingsCityTitle: "Suggestions de villes",
-    settingsCityDesc:
-      "Appuie sur Entrée pour ajouter une nouvelle suggestion",
+    settingsCityDesc: "Appuie sur Entrée pour ajouter une nouvelle suggestion",
     btnSaveSettings: "Enregistrer les paramètres",
   },
 };

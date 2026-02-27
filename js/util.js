@@ -27,3 +27,9 @@ function formatSalary(salary, currency) {
 
   return `${formatted} ${symbol}`;
 }
+
+function applyTheme(theme) {
+  const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+  const shouldBeDark = theme === "dark" || (theme === "system" && prefersDark);
+  document.documentElement.classList.toggle("dark", shouldBeDark);
+}

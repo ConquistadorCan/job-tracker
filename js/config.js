@@ -1,3 +1,12 @@
+const LANG_OPTIONS = [
+  { code: "en", label: "English", flag: "gb" },
+  { code: "tr", label: "Türkçe", flag: "tr" },
+  { code: "es", label: "Español", flag: "es" },
+  { code: "de", label: "Deutsch", flag: "de" },
+  { code: "it", label: "Italiano", flag: "it" },
+  { code: "fr", label: "Français", flag: "fr" },
+];
+
 const CONFIG = {
   appName: "JAT",
   storageKey: "job-tracker-applications",
@@ -14,6 +23,7 @@ const CONFIG = {
     jobType: "onsite",
     language: "en",
     salaryHidden: false,
+    theme: "system",
     positionSuggestions: [
       "Software Engineer",
       "Backend Engineer",

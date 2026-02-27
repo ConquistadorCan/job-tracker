@@ -14,6 +14,8 @@
     />
 
     <style type="text/tailwindcss">
+      @variant dark (&:where(.dark, .dark *));
+
       @theme {
         --color-cb-50: #f1f5fd;
         --color-cb-100: #dfe8fa;
@@ -34,67 +36,71 @@
         @apply inline-flex items-center whitespace-nowrap gap-1 px-2.5 py-0.5 rounded-full text-xs font-semibold;
       }
       .badge-pending {
-        @apply bg-amber-100 text-amber-700;
+        @apply bg-amber-100 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300;
       }
       .badge-accepted {
-        @apply bg-emerald-100 text-emerald-700;
+        @apply bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300;
       }
       .badge-rejected {
-        @apply bg-red-100 text-red-700;
+        @apply bg-red-100 text-red-700 dark:bg-red-900/40 dark:text-red-300;
       }
       .badge-interview {
-        @apply bg-purple-100 text-purple-700;
+        @apply bg-purple-100 text-purple-700 dark:bg-purple-900/40 dark:text-purple-300;
       }
-
       .badge-remote {
-        @apply bg-sky-100 text-sky-700;
+        @apply bg-sky-100 text-sky-700 dark:bg-sky-900/40 dark:text-sky-300;
       }
       .badge-onsite {
-        @apply bg-orange-100 text-orange-700;
+        @apply bg-orange-100 text-orange-700 dark:bg-orange-900/40 dark:text-orange-300;
       }
       .badge-hybrid {
-        @apply bg-teal-100 text-teal-700;
+        @apply bg-teal-100 text-teal-700 dark:bg-teal-900/40 dark:text-teal-300;
+      }
+
+      .app-dropdown-btn {
+        @apply cursor-pointer hover:opacity-80 transition duration-150 flex items-center justify-between gap-2 border border-cb-200 dark:border-cb-700 rounded-lg px-3 py-2 text-sm bg-white dark:bg-cb-800 text-cb-900 dark:text-cb-50 font-medium min-w-fit;
+      }
+
+      .app-dropdown-menu {
+        @apply absolute left-0 mt-1 bg-white dark:bg-cb-800 border border-cb-100 dark:border-cb-700 rounded-xl shadow-lg z-50 text-sm min-w-full py-1;
+        display: none;
+      }
+
+      .app-dropdown-item {
+        @apply w-full flex items-center gap-2 px-3 py-1.5 cursor-pointer hover:bg-cb-50 dark:hover:bg-cb-700 rounded-lg text-cb-900 dark:text-cb-50 font-medium whitespace-nowrap;
+      }
+
+      .app-dropdown-item.active {
+        @apply text-cb-600 dark:text-cb-300 font-semibold;
       }
     </style>
+
+    <script>
+      (function () {
+        const settings = JSON.parse(
+          localStorage.getItem("job-tracker-settings") || "{}",
+        );
+        const theme = settings.theme || "system";
+        const prefersDark = window.matchMedia(
+          "(prefers-color-scheme: dark)",
+        ).matches;
+        if (theme === "dark" || (theme === "system" && prefersDark)) {
+          document.documentElement.classList.add("dark");
+        }
+      })();
+    </script>
   </head>
 
   <body
-    class="font-sans bg-gradient-to-br from-cb-50 to-cb-100 min-h-screen text-cb-950"
+    class="font-sans bg-gradient-to-br from-cb-50 to-cb-100 dark:from-cb-950 dark:to-cb-900 min-h-screen text-cb-950 dark:text-cb-50"
   >
     <div class="max-w-5xl mx-auto px-4 py-4 sm:px-6 sm:py-8">
       <header
-        class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 bg-white rounded-2xl shadow-sm border border-cb-100 px-4 py-4 sm:px-6"
+        class="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between mb-6 sm:mb-8 bg-white dark:bg-cb-900 rounded-2xl shadow-sm border border-cb-100 dark:border-cb-800 px-4 py-4 sm:px-6"
       >
         <div class="flex items-center justify-between gap-3">
           <img src="assets/logo.svg" alt="JAT" class="h-10 sm:h-14 w-auto" />
-
           <div class="relative flex items-center gap-3 sm:hidden">
-            <div class="relative">
-              <button
-                id="btn-lang-mobile"
-                class="cursor-pointer hover:opacity-70 transition duration-150 flex items-center gap-1 border border-cb-200 rounded-full px-3 py-1 bg-white"
-              >
-                <span
-                  id="lang-label-mobile"
-                  class="text-xs font-medium text-cb-600"
-                >
-                  EN
-                </span>
-                <div class="w-5 h-3 overflow-hidden rounded-sm">
-                  <img
-                    id="lang-flag-mobile"
-                    src="https://flagcdn.com/gb.svg"
-                    alt="EN"
-                    class="w-full h-full object-cover"
-                  />
-                </div>
-                <span class="text-[10px] text-cb-300">▾</span>
-              </button>
-              <div
-                id="lang-options-mobile"
-                class="hidden absolute right-0 mt-1 bg-white border border-cb-100 rounded-xl shadow-lg z-50 text-xs min-w-[120px]"
-              ></div>
-            </div>
             <a
               href="settings.html"
               class="text-cb-300 hover:text-cb-600 transition duration-150 text-2xl"
@@ -112,9 +118,14 @@
             >
               Total
             </p>
-            <p id="stat-total" class="text-2xl font-extrabold text-cb-700">—</p>
+            <p
+              id="stat-total"
+              class="text-2xl font-extrabold text-cb-700 dark:text-cb-300"
+            >
+              —
+            </p>
           </div>
-          <div class="w-px bg-cb-100"></div>
+          <div class="w-px bg-cb-100 dark:bg-cb-800"></div>
           <div class="px-4 py-2 text-center">
             <p
               id="stat-interviews-label"
@@ -124,12 +135,12 @@
             </p>
             <p
               id="stat-interviews"
-              class="text-2xl font-extrabold text-purple-600"
+              class="text-2xl font-extrabold text-purple-600 dark:text-purple-400"
             >
               —
             </p>
           </div>
-          <div class="w-px bg-cb-100"></div>
+          <div class="w-px bg-cb-100 dark:bg-cb-800"></div>
           <div class="px-4 py-2 text-center">
             <p
               id="stat-rejected-label"
@@ -137,39 +148,16 @@
             >
               Rejected
             </p>
-            <p id="stat-rejected" class="text-2xl font-extrabold text-red-500">
+            <p
+              id="stat-rejected"
+              class="text-2xl font-extrabold text-red-500 dark:text-red-400"
+            >
               —
             </p>
           </div>
         </div>
 
         <div class="relative hidden sm:flex items-center gap-3">
-          <div class="relative">
-            <button
-              id="btn-lang-desktop"
-              class="cursor-pointer hover:opacity-70 transition duration-150 flex items-center gap-1 border border-cb-200 rounded-full px-3 py-1 bg-white"
-            >
-              <span
-                id="lang-label-desktop"
-                class="text-xs font-medium text-cb-600"
-              >
-                EN
-              </span>
-              <div class="w-5 h-3 overflow-hidden rounded-sm">
-                <img
-                  id="lang-flag-desktop"
-                  src="https://flagcdn.com/gb.svg"
-                  alt="EN"
-                  class="w-full h-full object-cover"
-                />
-              </div>
-              <span class="text-[10px] text-cb-300">▾</span>
-            </button>
-            <div
-              id="lang-options-desktop"
-              class="hidden absolute right-0 mt-1 bg-white border border-cb-100 rounded-xl shadow-lg z-50 text-xs min-w-[120px]"
-            ></div>
-          </div>
           <a
             href="settings.html"
             class="text-cb-300 hover:text-cb-600 transition duration-150 text-2xl"
@@ -179,13 +167,15 @@
         </div>
       </header>
 
-      <main class="bg-white rounded-2xl shadow-sm border border-cb-100">
+      <main
+        class="bg-white dark:bg-cb-900 rounded-2xl shadow-sm border border-cb-100 dark:border-cb-800"
+      >
         <div
-          class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between px-4 sm:px-6 py-4 border-b border-cb-100"
+          class="flex flex-col gap-3 md:flex-row md:items-center md:justify-between px-4 sm:px-6 py-4 border-b border-cb-100 dark:border-cb-800"
         >
           <h2
             id="table-title"
-            class="font-semibold text-lg sm:text-xl text-cb-800"
+            class="font-semibold text-lg sm:text-xl text-cb-800 dark:text-cb-100"
           >
             Applications
           </h2>
@@ -195,11 +185,11 @@
                 id="search-input"
                 type="text"
                 placeholder="Search by company..."
-                class="w-full md:w-56 border border-cb-200 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+                class="w-full md:w-56 border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-400 rounded-lg px-3 py-1.5 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
               />
               <button
                 id="search-clear"
-                class="hidden absolute right-2 text-slate-400 hover:text-slate-600 cursor-pointer"
+                class="hidden absolute right-2 text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 cursor-pointer"
               >
                 X
               </button>
@@ -207,20 +197,50 @@
           </div>
           <div class="flex flex-wrap gap-2 justify-end">
             <div class="relative w-full sm:w-auto">
-              <select
-                id="filter-status"
-                class="w-full appearance-none border border-cb-200 text-cb-600 rounded-lg px-3 py-2 pr-8 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400 cursor-pointer"
+              <button
+                id="btn-filter-status"
+                class="app-dropdown-btn w-full sm:w-auto"
               >
-                <option value="">All Status</option>
-                <option value="pending">Pending</option>
-                <option value="interview">Interview</option>
-                <option value="accepted">Accepted</option>
-                <option value="rejected">Rejected</option>
-              </select>
-              <span
-                class="absolute right-3 top-1/2 -translate-y-1/2 text-cb-400 pointer-events-none text-xs"
-                >▾</span
-              >
+                <span id="label-filter-status">All Status</span>
+                <span class="text-[10px] text-cb-300">▾</span>
+              </button>
+              <div id="options-filter-status" class="app-dropdown-menu">
+                <button
+                  class="app-dropdown-item active"
+                  data-value=""
+                  id="filter-opt-all"
+                >
+                  All Status
+                </button>
+                <button
+                  class="app-dropdown-item"
+                  data-value="pending"
+                  id="filter-opt-pending"
+                >
+                  Pending
+                </button>
+                <button
+                  class="app-dropdown-item"
+                  data-value="interview"
+                  id="filter-opt-interview"
+                >
+                  Interview
+                </button>
+                <button
+                  class="app-dropdown-item"
+                  data-value="accepted"
+                  id="filter-opt-accepted"
+                >
+                  Accepted
+                </button>
+                <button
+                  class="app-dropdown-item"
+                  data-value="rejected"
+                  id="filter-opt-rejected"
+                >
+                  Rejected
+                </button>
+              </div>
             </div>
             <button
               id="btn-add"
@@ -235,11 +255,11 @@
           <table class="w-full text-left text-xs sm:text-sm">
             <thead>
               <tr
-                class="text-cb-500 text-xs tracking-widest border-b border-cb-100 bg-cb-50/50"
+                class="text-cb-500 dark:text-cb-400 text-xs tracking-widest border-b border-cb-100 dark:border-cb-800 bg-cb-50/50 dark:bg-cb-800/50"
               >
                 <th
                   id="sort-company"
-                  class="py-3 px-6 font-semibold cursor-pointer hover:text-cb-700"
+                  class="py-3 px-6 font-semibold cursor-pointer hover:text-cb-700 dark:hover:text-cb-200"
                 >
                   <span id="col-company">Company</span>
                   <span id="sort-company-icon">↕</span>
@@ -249,7 +269,7 @@
                 </th>
                 <th
                   id="sort-date"
-                  class="py-3 px-6 font-semibold cursor-pointer hover:text-cb-700"
+                  class="py-3 px-6 font-semibold cursor-pointer hover:text-cb-700 dark:hover:text-cb-200"
                 >
                   <span id="col-dateApplied">Date Applied</span>
                   <span id="sort-date-icon">↕</span>
@@ -263,7 +283,7 @@
                     <span id="col-salary">Expected Salary</span>
                     <button
                       id="btn-toggle-salary"
-                      class="ml-1 text-cb-300 hover:text-cb-600 cursor-pointer transition duration-150"
+                      class="ml-1 text-cb-300 hover:text-cb-600 dark:hover:text-cb-200 cursor-pointer transition duration-150"
                       type="button"
                     >
                       <svg
@@ -310,16 +330,15 @@
                 <th id="col-status" class="py-3 px-6 font-semibold">Status</th>
               </tr>
             </thead>
-
             <tbody
               id="table-body"
-              class="[&_tr]:border-b [&_tr]:border-cb-50 [&_tr]:transition [&_tr]:duration-150 [&_tr:hover]:bg-cb-50/60"
+              class="[&_tr]:border-b [&_tr]:border-cb-50 dark:[&_tr]:border-cb-800 [&_tr]:transition [&_tr]:duration-150 [&_tr:hover]:bg-cb-50/60 dark:[&_tr:hover]:bg-cb-800/60 dark:[&_tr]:text-cb-200"
             ></tbody>
           </table>
         </div>
 
         <div
-          class="px-4 sm:px-6 py-3 border-t border-cb-50 text-xs text-slate-400"
+          class="px-4 sm:px-6 py-3 border-t border-cb-50 dark:border-cb-800 text-xs text-slate-400 dark:text-cb-500"
         >
           <span id="table-counter">—</span>
         </div>
@@ -335,18 +354,21 @@
 
     <div
       id="modal"
-      class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-2"
+      class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 flex items-center justify-center z-50 px-2"
     >
       <div
-        class="bg-white rounded-2xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto mx-auto p-4 sm:p-6"
+        class="bg-white dark:bg-cb-900 rounded-2xl shadow-xl w-full max-w-md max-h-[90vh] overflow-y-auto mx-auto p-4 sm:p-6 border border-cb-100 dark:border-cb-800"
       >
         <div class="flex items-center justify-between mb-6">
-          <h3 id="modal-title" class="font-bold text-lg text-cb-800">
+          <h3
+            id="modal-title"
+            class="font-bold text-lg text-cb-800 dark:text-cb-100"
+          >
             New Application
           </h3>
           <button
             id="modal-close"
-            class="text-slate-400 hover:text-slate-600 cursor-pointer"
+            class="text-slate-400 hover:text-slate-600 dark:hover:text-slate-300 cursor-pointer"
           >
             ✕
           </button>
@@ -357,7 +379,7 @@
             id="field-company"
             type="text"
             placeholder="Company"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+            class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
           />
           <p id="error-company" class="hidden text-xs text-red-500 mt-1">
             Company is required.
@@ -368,7 +390,7 @@
             type="text"
             placeholder="Position"
             list="position-datalist"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+            class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
           />
           <datalist id="position-datalist"></datalist>
           <p id="error-position" class="hidden text-xs text-red-500 mt-1">
@@ -378,7 +400,7 @@
           <input
             id="field-date"
             type="date"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+            class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
           />
           <p id="error-date" class="hidden text-xs text-red-500 mt-1">
             Date is required.
@@ -389,45 +411,123 @@
             type="text"
             placeholder="City"
             list="city-datalist"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+            class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
           />
           <datalist id="city-datalist"></datalist>
 
-          <select
-            id="field-jobtype"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          >
-            <option value="remote">Remote</option>
-            <option value="onsite" selected>Onsite</option>
-            <option value="hybrid">Hybrid</option>
-          </select>
+          <!-- Job Type -->
+          <div class="relative">
+            <button id="btn-field-jobtype" class="app-dropdown-btn w-full">
+              <span id="label-field-jobtype">Onsite</span>
+              <span class="text-[10px] text-cb-300">▾</span>
+            </button>
+            <div id="options-field-jobtype" class="app-dropdown-menu">
+              <button
+                class="app-dropdown-item"
+                data-value="remote"
+                id="jobtype-opt-remote"
+              >
+                Remote
+              </button>
+              <button
+                class="app-dropdown-item active"
+                data-value="onsite"
+                id="jobtype-opt-onsite"
+              >
+                Onsite
+              </button>
+              <button
+                class="app-dropdown-item"
+                data-value="hybrid"
+                id="jobtype-opt-hybrid"
+              >
+                Hybrid
+              </button>
+            </div>
+            <input type="hidden" id="field-jobtype" value="onsite" />
+          </div>
 
           <div class="flex gap-2">
             <input
               id="field-salary"
               type="number"
               placeholder="Expected Salary"
-              class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+              class="flex-1 border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
             />
-            <select
-              id="field-currency"
-              class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-            >
-              <option value="TRY">₺ TRY</option>
-              <option value="USD">$ USD</option>
-              <option value="EUR">€ EUR</option>
-            </select>
+            <!-- Currency -->
+            <div class="relative">
+              <button id="btn-field-currency" class="app-dropdown-btn h-full">
+                <span id="label-field-currency">₺ TRY</span>
+                <span class="text-[10px] text-cb-300">▾</span>
+              </button>
+              <div
+                id="options-field-currency"
+                class="app-dropdown-menu right-0 left-auto"
+              >
+                <button
+                  class="app-dropdown-item active"
+                  data-value="TRY"
+                  id="currency-opt-TRY"
+                >
+                  ₺ TRY
+                </button>
+                <button
+                  class="app-dropdown-item"
+                  data-value="USD"
+                  id="currency-opt-USD"
+                >
+                  $ USD
+                </button>
+                <button
+                  class="app-dropdown-item"
+                  data-value="EUR"
+                  id="currency-opt-EUR"
+                >
+                  € EUR
+                </button>
+              </div>
+              <input type="hidden" id="field-currency" value="TRY" />
+            </div>
           </div>
 
-          <select
-            id="field-status"
-            class="border border-cb-200 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          >
-            <option value="pending">Pending</option>
-            <option value="interview">Interview</option>
-            <option value="accepted">Accepted</option>
-            <option value="rejected">Rejected</option>
-          </select>
+          <!-- Status -->
+          <div class="relative">
+            <button id="btn-field-status" class="app-dropdown-btn w-full">
+              <span id="label-field-status">Pending</span>
+              <span class="text-[10px] text-cb-300">▾</span>
+            </button>
+            <div id="options-field-status" class="app-dropdown-menu">
+              <button
+                class="app-dropdown-item active"
+                data-value="pending"
+                id="status-opt-pending"
+              >
+                Pending
+              </button>
+              <button
+                class="app-dropdown-item"
+                data-value="interview"
+                id="status-opt-interview"
+              >
+                Interview
+              </button>
+              <button
+                class="app-dropdown-item"
+                data-value="accepted"
+                id="status-opt-accepted"
+              >
+                Accepted
+              </button>
+              <button
+                class="app-dropdown-item"
+                data-value="rejected"
+                id="status-opt-rejected"
+              >
+                Rejected
+              </button>
+            </div>
+            <input type="hidden" id="field-status" value="pending" />
+          </div>
 
           <button
             id="modal-submit"
@@ -441,22 +541,28 @@
 
     <div
       id="confirm-modal"
-      class="hidden fixed inset-0 bg-black/40 flex items-center justify-center z-50 px-2"
+      class="hidden fixed inset-0 bg-black/40 dark:bg-black/60 flex items-center justify-center z-50 px-2"
     >
       <div
-        class="bg-white rounded-2xl shadow-xl w-full max-w-sm max-h-[80vh] overflow-y-auto mx-auto p-4 sm:p-6"
+        class="bg-white dark:bg-cb-900 rounded-2xl shadow-xl w-full max-w-sm max-h-[80vh] overflow-y-auto mx-auto p-4 sm:p-6 border border-cb-100 dark:border-cb-800"
       >
-        <h3 id="confirm-title" class="font-bold text-lg text-cb-800 mb-2">
+        <h3
+          id="confirm-title"
+          class="font-bold text-lg text-cb-800 dark:text-cb-100 mb-2"
+        >
           Delete Application
         </h3>
-        <p id="confirm-message" class="text-sm text-slate-500 mb-6">
+        <p
+          id="confirm-message"
+          class="text-sm text-slate-500 dark:text-cb-400 mb-6"
+        >
           Are you sure you want to delete this application? This action cannot
           be undone.
         </p>
         <div class="flex gap-3 justify-end">
           <button
             id="confirm-cancel"
-            class="border border-cb-200 text-cb-600 hover:bg-cb-50 rounded-lg px-4 py-2 text-sm font-medium transition duration-150 cursor-pointer"
+            class="border border-cb-200 dark:border-cb-700 text-cb-600 dark:text-cb-300 hover:bg-cb-50 dark:hover:bg-cb-800 rounded-lg px-4 py-2 text-sm font-medium transition duration-150 cursor-pointer"
           >
             Cancel
           </button>
@@ -472,7 +578,7 @@
 
     <button
       id="scroll-top"
-      class="opacity-0 transition fixed bottom-6 right-6 bg-cb-600 text-white rounded-full w-10 h-10 shadow-lg hover:bg-cb-700 transition duration-150 cursor-pointer text-lg"
+      class="opacity-0 pointer-events-none transition fixed bottom-6 right-6 bg-cb-600 text-white rounded-full w-10 h-10 shadow-lg hover:bg-cb-700 duration-150 cursor-pointer text-lg"
     >
       ↑
     </button>
