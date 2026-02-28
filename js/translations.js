@@ -63,6 +63,19 @@ const TRANSLATIONS = {
     emptySubtitle: "JAT helps you track your job applications in one place.",
     emptyAction: "Click + Add to add your first application",
 
+    // Statistics
+    navStats: "Statistics",
+    statsTitle: "Statistics",
+    statsBack: "← Back",
+    statsStatusChartTitle: "Application Status Distribution",
+    statsMonthlyChartTitle: "Applications by Month",
+    statsNoData: "No applications yet. Add some to see statistics!",
+    statsTotal: "Total Applications",
+    statsAccepted: "Accepted",
+    statsPending: "Pending",
+    statsInterview: "Interview",
+    statsRejected: "Rejected",
+
     // Settings
     settingsTitle: "Settings",
     settingsBack: "← Back",
@@ -148,6 +161,19 @@ const TRANSLATIONS = {
     emptyTitle: "Henüz başvuru yok",
     emptySubtitle: "JAT, iş başvurularını tek bir yerde takip etmeni sağlar.",
     emptyAction: "+ Ekle butonuna tıklayarak ilk başvurunu ekle",
+
+    // Statistics
+    navStats: "İstatistikler",
+    statsTitle: "İstatistikler",
+    statsBack: "← Geri",
+    statsStatusChartTitle: "Başvuru Durum Dağılımı",
+    statsMonthlyChartTitle: "Aylara Göre Başvuru",
+    statsNoData: "Henüz başvuru yok. İstatistikleri görmek için başvuru ekle!",
+    statsTotal: "Toplam Başvuru",
+    statsAccepted: "Kabul",
+    statsPending: "Beklemede",
+    statsInterview: "Mülakat",
+    statsRejected: "Reddedildi",
 
     // Settings
     settingsTitle: "Ayarlar",
@@ -235,6 +261,20 @@ const TRANSLATIONS = {
     emptySubtitle:
       "JAT te ayuda a seguir tus solicitudes de trabajo en un solo lugar.",
     emptyAction: "Haz clic en + Añadir para agregar tu primera solicitud",
+
+    // Statistics
+    navStats: "Estadísticas",
+    statsTitle: "Estadísticas",
+    statsBack: "← Volver",
+    statsStatusChartTitle: "Distribución de estado de solicitudes",
+    statsMonthlyChartTitle: "Solicitudes por mes",
+    statsNoData:
+      "Aún no hay solicitudes. ¡Añade algunas para ver estadísticas!",
+    statsTotal: "Total de solicitudes",
+    statsAccepted: "Aceptada",
+    statsPending: "Pendiente",
+    statsInterview: "Entrevista",
+    statsRejected: "Rechazada",
 
     // Settings
     settingsTitle: "Ajustes",
@@ -324,6 +364,20 @@ const TRANSLATIONS = {
     emptySubtitle:
       "JAT hilft dir, deine Bewerbungen an einem Ort zu verwalten.",
     emptyAction: "Klicke auf + Hinzufügen, um deine erste Bewerbung anzulegen",
+
+    // Statistics
+    navStats: "Statistiken",
+    statsTitle: "Statistiken",
+    statsBack: "← Zurück",
+    statsStatusChartTitle: "Bewerbungsstatus-Verteilung",
+    statsMonthlyChartTitle: "Bewerbungen pro Monat",
+    statsNoData:
+      "Noch keine Bewerbungen. Füge welche hinzu, um Statistiken zu sehen!",
+    statsTotal: "Bewerbungen gesamt",
+    statsAccepted: "Angenommen",
+    statsPending: "Ausstehend",
+    statsInterview: "Vorstellungsgespräch",
+    statsRejected: "Abgelehnt",
 
     // Settings
     settingsTitle: "Einstellungen",
@@ -415,6 +469,20 @@ const TRANSLATIONS = {
       "JAT ti aiuta a tenere traccia delle tue candidature in un unico posto.",
     emptyAction: "Fai clic su + Aggiungi per inserire la tua prima candidatura",
 
+    // Statistics
+    navStats: "Statistiche",
+    statsTitle: "Statistiche",
+    statsBack: "← Indietro",
+    statsStatusChartTitle: "Distribuzione dello stato delle candidature",
+    statsMonthlyChartTitle: "Candidature per mese",
+    statsNoData:
+      "Ancora nessuna candidatura. Aggiungine alcune per vedere le statistiche!",
+    statsTotal: "Totale candidature",
+    statsAccepted: "Accettata",
+    statsPending: "In attesa",
+    statsInterview: "Colloquio",
+    statsRejected: "Rifiutata",
+
     // Settings
     settingsTitle: "Impostazioni",
     settingsBack: "← Indietro",
@@ -503,6 +571,20 @@ const TRANSLATIONS = {
     emptyTitle: "Aucune candidature pour l'instant",
     emptySubtitle: "JAT t'aide à suivre tes candidatures à un seul endroit.",
     emptyAction: "Clique sur + Ajouter pour créer ta première candidature",
+
+    // Statistics
+    navStats: "Statistiques",
+    statsTitle: "Statistiques",
+    statsBack: "← Retour",
+    statsStatusChartTitle: "Répartition des statuts de candidature",
+    statsMonthlyChartTitle: "Candidatures par mois",
+    statsNoData:
+      "Aucune candidature pour l'instant. Ajoutes-en pour voir les statistiques !",
+    statsTotal: "Total des candidatures",
+    statsAccepted: "Acceptée",
+    statsPending: "En attente",
+    statsInterview: "Entretien",
+    statsRejected: "Refusée",
 
     // Settings
     settingsTitle: "Paramètres",
