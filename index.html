@@ -427,15 +427,6 @@
           </p>
 
           <input
-            id="field-date"
-            type="date"
-            class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
-          />
-          <p id="error-date" class="hidden text-xs text-red-500 mt-1">
-            Date is required.
-          </p>
-
-          <input
             id="field-city"
             type="text"
             placeholder="City"
@@ -443,38 +434,6 @@
             class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 dark:placeholder-cb-500 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
           />
           <datalist id="city-datalist"></datalist>
-
-          <!-- Job Type -->
-          <div class="relative">
-            <button id="btn-field-jobtype" class="app-dropdown-btn w-full">
-              <span id="label-field-jobtype">Onsite</span>
-              <span class="text-[10px] text-cb-300">▾</span>
-            </button>
-            <div id="options-field-jobtype" class="app-dropdown-menu">
-              <button
-                class="app-dropdown-item"
-                data-value="remote"
-                id="jobtype-opt-remote"
-              >
-                Remote
-              </button>
-              <button
-                class="app-dropdown-item active"
-                data-value="onsite"
-                id="jobtype-opt-onsite"
-              >
-                Onsite
-              </button>
-              <button
-                class="app-dropdown-item"
-                data-value="hybrid"
-                id="jobtype-opt-hybrid"
-              >
-                Hybrid
-              </button>
-            </div>
-            <input type="hidden" id="field-jobtype" value="onsite" />
-          </div>
 
           <div class="flex gap-2">
             <input
@@ -518,6 +477,47 @@
               <input type="hidden" id="field-currency" value="TRY" />
             </div>
           </div>
+
+          <!-- Job Type -->
+          <div class="relative">
+            <button id="btn-field-jobtype" class="app-dropdown-btn w-full">
+              <span id="label-field-jobtype">Onsite</span>
+              <span class="text-[10px] text-cb-300">▾</span>
+            </button>
+            <div id="options-field-jobtype" class="app-dropdown-menu">
+              <button
+                class="app-dropdown-item"
+                data-value="remote"
+                id="jobtype-opt-remote"
+              >
+                Remote
+              </button>
+              <button
+                class="app-dropdown-item active"
+                data-value="onsite"
+                id="jobtype-opt-onsite"
+              >
+                Onsite
+              </button>
+              <button
+                class="app-dropdown-item"
+                data-value="hybrid"
+                id="jobtype-opt-hybrid"
+              >
+                Hybrid
+              </button>
+            </div>
+            <input type="hidden" id="field-jobtype" value="onsite" />
+          </div>
+
+          <input
+            id="field-date"
+            type="date"
+            class="border border-cb-200 dark:border-cb-700 dark:bg-cb-800 dark:text-cb-100 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-cb-400"
+          />
+          <p id="error-date" class="hidden text-xs text-red-500 mt-1">
+            Date is required.
+          </p>
 
           <!-- Status -->
           <div class="relative">
