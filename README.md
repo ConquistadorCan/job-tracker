@@ -61,3 +61,6 @@ No build step is required; this is a static site.
 - The app is purely client-side; there is no backend or authentication.
 - For production use you would normally connect this UI to an API or other persistent storage.
 
+### License
+
+This project is licensed under the [MIT License](LICENSE).
